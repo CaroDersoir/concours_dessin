@@ -1,17 +1,18 @@
+<!--Permet à tous les utilisateurs de s'inscrire au coucours selectionner -->
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion - Le Grand Gribouillis</title>
+    <title>Le Grand Gribouillis</title>
+    <!-- Lien vers le fichier CSS -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
         <h1>Le Grand Gribouillis</h1>
-
         <button id="loginBtn" class="btn login-btn">Se connecter</button>
-
+        
         <nav>
             <!-- Menu public -->
             <div class="dropdown">
@@ -43,32 +44,37 @@
         </nav>
     </header>
 
-    <main class="login-container">
-        <h2>Connexion</h2>
-        <form id="loginForm">
-            <label for="utilisateur">Nom d'utilisateur :</label>
-            <input type="text" id="utilisateur" name="utilisateur" placeholder="PDupont" required>
-            <br>
-            <label for="password">Mot de passe :</label>
-            <input type="password" id="password" name="password" placeholder="••••••••" required>
-            <br>
-            <br>
-            <button type="submit" class="btn">Se connecter</button>
-            <button type="button" class="inscription">S'inscrire</button>
+    <main>
+        <h2>Bienvenue sur Le Grand Gribouillis !</h2>
+        <p>Suivez les instructions suivantes pour créer un compte :</p>
 
+        <form id="inscriptionForm" method="POST" action="/back/inscription.php">
+            <label>Numéro de ton club : <input type="text" name="numero_club" required></label><br><br>
+            <label>Nom : <input type="text" name="nom" required></label><br><br>
+            <label>Prénom : <input type="text" name="prenom" required></label><br><br>
+            <label>Adresse : <input type="text" name="adresse" required></label><br><br>
+            <label>Age : <input type="number" name="age" min="0" required></label><br><br>
+            <label>Nom d'utilisateur : <input type="text" name="username" required></label><br><br>
+            <label>Mot de passe : <input type="password" name="password" id="password" required></label><br><br>
+            <label>Confirmer mot de passe : <input type="password" name="confirm_password" id="confirm_password" required></label><br><br>
+            <button type="submit">S'inscrire</button>
         </form>
+
+
+        <!-- Lien vers le JS externe -->
+        <script src="/service/inscription.js"></script>
+        <script src="/service/bpConnection.js"></script>
+        <script src="/service/nav_log.js"></script>
     </main>
 
-    <!-- Lien vers le JS externe -->
-    <script src="service/login.js"></script>
-    <script src="service/bpConnection.js"></script>
-    <script src="service/nav_log.js"></script>
 
     <footer>
         <p>
             © 2026 Le Grand Gribouillis <br>
-            Créé par DERSOIR Caroline / CHAUVEAU Rémi / GUILLET Bastien / LUCAS Elouan
+            Créé par DERSOIR Caroline / CHAUVEAU Rémi / GUILLET Bastien / LUCAS Elouan <br>
         </p>
     </footer>
+
+
 </body>
 </html>

@@ -40,3 +40,15 @@ form.addEventListener("submit", function (event) {
         alert("Erreur serveur");
     });
 });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const btnInscription = document.querySelector(".inscription");
+
+    if (btnInscription) {
+        btnInscription.addEventListener("click", () => {
+            // Redirection vers la page d'inscription
+            window.location.href = "../inscription.html";
+        });
+    }
+});
