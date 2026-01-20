@@ -45,12 +45,38 @@
 
     <main>
         <h2>Bienvenue sur la page competiteur !</h2>
-        <p>Test</p>
+        <div class="colonnes-concours-colonne">
+
+            <!-- Concours en cours -->
+            <div class="colonne" id="concoursInscrits">
+                <h3>Concours où vous êtes inscrit :</h3>
+                <ul id="concours-actuels">
+                    <!-- Rempli dynamiquement par JS -->
+                </ul>
+            </div>
+
+            <!-- Concours passés -->
+            <div class="colonne" id="participations">
+                <h3>Concours où vous pouvez participer :</h3>
+                <ul id="concours-ouverts">
+                    <!-- Rempli dynamiquement par JS -->
+                </ul>
+            </div>
+            
+            <div class="colonne" id="ancienParticipations">
+                <h3>Concours où vous avez participer :</h3>
+                <ul id="concours-passes">
+                    <!-- Rempli dynamiquement par JS -->
+                </ul>
+            </div>
+
+        </div>
     </main>
 
     <!-- Lien vers le JS externe -->
     <script src="/service/bpConnection.js"></script>
     <script src="/service/nav_log.js"></script>
+    <script src="/service/concoursCompetiteur.js"></script>
 
 
     <footer>

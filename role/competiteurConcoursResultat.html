@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Le Grand Gribouillis</title>
     <!-- Lien vers le fichier CSS -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
     <header>
@@ -17,9 +17,9 @@
             <div class="dropdown">
                 <button class="dropdown-btn">Menu</button>
                 <div class="dropdown-content">
-                    <a href="acceuil.html">Accueil</a>
-                    <a href="apropos.html">À propos</a>
-                    <a href="concours.html">Concours</a>
+                    <a href="/acceuil.html">Accueil</a>
+                    <a href="/apropos.html">À propos</a>
+                    <a href="/concours.html">Concours</a>
                 </div>
             </div>
 
@@ -39,24 +39,32 @@
             <a href="/utilisateur/monEspace.html" class="nav-private">Mon Espace</a>
 
             <!-- Lien public -->
-            <a href="contact.html">Contact</a> 
+            <a href="/contact.html">Contact</a> 
         </nav>
     </header>
 
     <main>
-        <h2>Bienvenue sur Le Grand Gribouillis !</h2>
-        <p>Les actualités de la semaine :</p>
+        <h2 id="titre-concours">Résultats du concours</h2>
 
-        <div class="colonne">
-            <h3>Concours en cours</h3>
-            <ul id="concours-actuels"></ul>
+        <div id="infos-concours">
+            <p><strong>Thème :</strong> <span id="theme"></span></p>
+            <p><strong>Période :</strong> 
+                <span id="dateDebut"></span> → <span id="dateFin"></span>
+            </p>
+        </div>
+
+        <div id="dessins-container" class="dessins-container">
+            <!-- Rempli par JS -->
         </div>
     </main>
+
+
 
     <!-- Lien vers le JS externe -->
     <script src="/service/bpConnection.js"></script>
     <script src="/service/nav_log.js"></script>
-    <script src="/service/concoursEnCours.js"></script>
+    <script src="/service/concoursResultat.js"></script>
+    
 
 
     <footer>
