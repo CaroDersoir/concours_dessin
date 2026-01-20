@@ -2,25 +2,40 @@ console.log("=== infoMonEspace.js chargé ===");
 
 document.addEventListener("DOMContentLoaded", () => {
 
-
     const token = localStorage.getItem("token");
-    const userJSON = localStorage.getItem("user");
 
-
-    if (!token || !userJSON) {
+    if (!token) {
         console.warn("Utilisateur non connecté");
-        // Redirection possible
         // window.location.href = "/login.html";
         return;
     }
 
-    const user = JSON.parse(userJSON);
-    console.log("Utilisateur parsé :", user);
+    fetch('/back/infoUtilisateur.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams({
+            utilisateur: token
+        })
+    })
+    .then(res => res.json())
+    .then(data_info => {
+        if (!data_info.success) {
+            console.error("Erreur API :", data_info.error);
+            return;
+        }
 
-    // 🔹 Injection dans le HTML
-    document.getElementById('mail').textContent   = user.login + "@exemple.com"; // ou user.email
-    document.getElementById('login').textContent  = user.login;
-    document.getElementById('nom').textContent    = user.nom;
-    document.getElementById('prenom').textContent = user.prenom;
-    document.getElementById('numClub').textContent = user.numClub;
+        const user = data_info.user;
+
+        document.getElementById('mail').textContent    = user.login + "@exemple.com";
+        document.getElementById('login').textContent   = user.login;
+        document.getElementById('nom').textContent     = user.nom;
+        document.getElementById('prenom').textContent  = user.prenom ?? '';
+        document.getElementById('adresse').textContent = user.adresse ?? 'Adresse non renseignée';
+        document.getElementById('numClub').textContent = user.numClub;
+    })
+    .catch(err => {
+        console.error("Erreur fetch :", err);
+    });
 });

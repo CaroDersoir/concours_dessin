@@ -36,6 +36,7 @@ try {
                 login,
                 nom,
                 prenom,
+                adresse,
                 numClub
             FROM Utilisateur
             WHERE login = :login
@@ -55,6 +56,7 @@ try {
             'login'   => $user['login'],
             'nom'     => $user['nom'],
             'prenom'  => $user['prenom'],
+            'adresse' => $user['adresse'],
             'numClub' => $user['numClub'],
             //'email'   => $user['email'],
         ]

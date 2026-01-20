@@ -1,8 +1,3 @@
-<!--affiche tout les concours au quelle on sais insrit et au quelle ont a deja participer 
-changement du mdp 
-information personne 
--->
-
 <!DOCTYPE html>
 <html lang="fr">
     <head>
@@ -51,38 +46,52 @@ information personne
         </header>
 
         <main>
+
             <h2>Bienvenue dans votre espace</h2>
-                <p>Mail : <span id="mail"></span></p>
-                <br>
-                <p>Nom d'utilisateur : <span id="login"></span></p>
-                <br>
-                <p>Nom : <span id="nom"></span></p>
-                <br>
-                <p>Prénom : <span id="prenom"></span></p>
-                <br>
-                <p>Numéro de club : <span id="numClub"></span></p>
-                <br>
+            <div class="colonnes-concours"> 
+                <div class="colonne" id="indormation1">
+                    <h3>Vos informations :</h3>
+                    <ul>
+                        <li>Mail : <span id="mail"></span></li>
+                        <li>Nom : <span id="nom"></span></li>
+                        <li>Prénom : <span id="prenom"></span></li>
+                    </ul>
+                </div>
+                <div class="colonne" id="indormation2">
+                    <br><br><br>
+                    <ul>
+                        <li>Nom d'utilisateur : <span id="login"></span></li>
+                        <li>Adresse : <span id="adresse"></span></li>
+                        <li>Numéro de club : <span id="numClub"></span></li>
+                    </ul>
+                </div>
+            </div>
+            
+            
             <p>
                 <button id="changePwdBtn" class="btn">Changer mot de passe</button>
             </p>
 
             <div class="colonnes-concours">
-            <div class="colonne" id="concoursInscrits">
-                <h3>Vos inscriptions :</h3>
-                <ul>
-                    <li>Concours 1</li>
-                    <li>Concours 2</li>
-                </ul>
+
+                <!-- Concours en cours -->
+                <div class="colonne" id="concoursInscrits">
+                    <h3>Concours en cours</h3>
+                    <ul id="concours-actuels">
+                        <!-- Rempli dynamiquement par JS -->
+                    </ul>
+                </div>
+
+                <!-- Concours passés -->
+                <div class="colonne" id="participations">
+                    <h3>Concours passés</h3>
+                    <ul id="concours-passes">
+                        <!-- Rempli dynamiquement par JS -->
+                    </ul>
+                </div>
+
             </div>
 
-            <div class="colonne" id="participations">
-                <h3>Les concours passée</h3>
-                <ul>
-                    <li>Concours 1</li>
-                    <li>Concours 2</li>
-                </ul>
-            </div>
-        </div>
         </main>
 
         <!-- Modal pour changer le mot de passe -->
@@ -106,8 +115,6 @@ information personne
             </div>
         </div>
 
-
-
         <footer>
             <p>
                 © 2026 Le Grand Gribouillis <br>
@@ -119,4 +126,5 @@ information personne
     <script src="/service/changer_mdp.js"></script>
     <script src="/service/nav_log.js"></script>
     <script src="/service/infoMonEspace.js"></script>
+    <script src="/service/concourUtil.js"></script>
 </html>
