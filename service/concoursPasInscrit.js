@@ -38,3 +38,41 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .catch(err => console.error("Erreur JS :", err));
 });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("form-inscription");
+    if (!form) return;
+
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const token = localStorage.getItem("token");
+        if (!token) {
+            alert("Utilisateur non connecté !");
+            return;
+        }
+
+        const formData = new FormData(form);
+        formData.append("token", token); // on envoie le token pour identifier l'utilisateur
+
+        try {
+            const response = await fetch("/back/concoursDemandeInscription.php", {
+                method: "POST",
+                body: formData
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                alert("Inscription enregistrée avec succès ! Statut : en attente");
+                form.reset();
+            } else {
+                alert("Erreur : " + result.message);
+            }
+        } catch (err) {
+            console.error("Erreur JS :", err);
+            alert("Erreur serveur !");
+        }
+    });
+});
