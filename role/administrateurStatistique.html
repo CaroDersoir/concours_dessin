@@ -56,34 +56,44 @@
         </aside>
 
         <main>
-            <h2>Bienvenue sur la page Administrateur !</h2>
+             <h2>Statistiques de tous les concours !</h2>
 
             <div class="colonnes-concours">
 
-                    <!-- Concours en cours -->
-                    <div class="colonne" id="concoursInscrits">
-                        <h3>Concours en cours</h3>
-                        <ul id="concours-actuels">
-                            <!-- Rempli dynamiquement par JS -->
-                        </ul>
-                    </div>
+                <div class="colonne" id="Col1Statistique">
+                    <h3>Nombre de concours en cours : </h3>
+                    <p> <span id="enCours">...</span></p>
 
-                    <!-- Concours passés -->
-                    <div class="colonne" id="ancienneParticipations">
-                        <h3>Concours passés</h3>
-                        <ul id="concours-passes">
-                            <!-- Rempli dynamiquement par JS -->
-                        </ul>
-                    </div>
+                    <h3>Nombre total de participants :</h3>
+                    <p> <span id="participants">...</span></p>
+
+                    <h3>Moyenne de note dans l'ensemble des concours :</h3>
+                    <p> <span id="moyenne">...</span></p>
+
 
                 </div>
+
+                <div class="colonne" id="Col2Statistique">
+                    <h3>Nombre de concours fini :</h3>
+                    <p> <span id="finis">...</span></p>
+                    
+                    <h3>Nombre total de dessins soumis :</h3>
+                    <p> <span id="dessins">...</span></p>
+
+
+                </div>
+
+            </div>
+            <h3>Clubs, leur département et leur numéro de téléphone :</h3>
+            <ul id="clubs"></ul>
+
         </main>
     </div>
 
     <!-- Lien vers le JS externe -->
     <script src="/service/bpConnection.js"></script>
     <script src="/service/nav_log.js"></script>
-    <script src="/service/administrateurConcours.js"></script>
+    <script src="/service/administrateurStatistique.js"></script>
 
 
     <footer>
