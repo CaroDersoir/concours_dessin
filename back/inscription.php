@@ -43,7 +43,7 @@ try {
     }
 
     // Hash du mot de passe
-    //$password_hash = password_hash($password, PASSWORD_DEFAULT);
+    $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
     // Insertion dans la base
     $sqlInsert = "INSERT INTO Utilisateur (numClub, nom, prenom, adresse, age, login, motDePasse)
@@ -56,7 +56,7 @@ try {
         ':adresse'    => $adresse ?: null,
         ':age'        => $age ?: null,
         ':login'      => $login,
-        ':motDePasse' => $password
+        ':motDePasse' => $password_hash,
     ]);
 
     // Récupération de l'ID nouvellement créé

@@ -28,10 +28,10 @@
                 <button class="dropdown-btn">Mon Rôle</button>
                 <div class="dropdown-content">
                     <a href="#">Président</a>
-                    <a href="/role/competiteur.html">Compétiteur</a>
+                    <a href="competiteur.html">Compétiteur</a>
                     <a href="#">Directeur</a>
-                    <a href="/role/evaluateur.html">Évaluateur</a>
-                    <a href="/role/administrateur.html">Administrateur</a>
+                    <a href="evaluateur.html">Évaluateur</a>
+                    <a href="administrateur.html">Administrateur</a>
                 </div>
             </div>
 
@@ -39,11 +39,13 @@
             <a href="/utilisateur/monEspace.html" class="nav-private">Mon Espace</a>
 
             <!-- Lien public -->
-            <a href="/contact.html">Contact</a> 
+            <a href="/Contact.html">Contact</a> 
         </nav>
     </header>
 
     <main>
+        <h2>Bienvenue sur la page Evaluateur !</h2>
+
         <h2 id="titre-concours">Concours</h2>
 
         <div id="infos-concours">
@@ -54,38 +56,29 @@
             <p><strong>État :</strong> <span id="etat"></span></p>
         </div>
 
-        <h3>Vos dessins</h3>
-        <div id="dessins-container" class="dessins-container">
+        <h3>A vous de noter</h3>
+
+        <div id="dessins-evaluateur" class="dessins-container">
             <!-- Dessins existants -->
+
+            <label id ="note-pas-mise" style="display:none;">
+                Note que vous donnéez au dessin (sur 20) :
+                <input type="text" name="note" required>
+            </label>
+            <button id="submitNoteBtn" class="btn" style="display:none;">Soumettre la note</button>
+
+            <label id ="note-mise" style="display:none;">
+                <p><strong>Note :</strong> <span id="theme"></span></p>
+                <p id="message-evaluation" style="color:green;"></p>
+            </label>
         </div>
 
-        <h3>Ajouter un dessin</h3>
-        <form id="form-dessin" enctype="multipart/form-data">
-            <label>
-                Nom du dessin :
-                <input type="text" name="commentaire" required>
-            </label>
-            <br><br>
-
-            <label>
-                Fichier :
-                <input type="file" name="dessin" accept="image/*" required>
-            </label>
-
-            <input type="hidden" name="numConcours" id="numConcours">
-
-            <br><br>
-            <button type="submit" class="btn">Envoyer le dessin</button>
-        </form>
     </main>
-
 
     <!-- Lien vers le JS externe -->
     <script src="/service/bpConnection.js"></script>
     <script src="/service/nav_log.js"></script>
-    <script src="/service/concoursInscrit.js"></script>
-    
-
+    <script src="/service/evaluateurConcoursEnCours.js"></script>
 
     <footer>
         <p>

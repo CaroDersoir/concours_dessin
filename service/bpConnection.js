@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
             alert("Vous êtes déconnecté");
 
             // Redirection
-            window.location.href = "/acceuil.html";
+            window.location.href = "/accueil.html";
         });
 
     } else {

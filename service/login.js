@@ -19,17 +19,17 @@ form.addEventListener("submit", function (event) {
     })
     .then(response => response.json())
     .then(data => {
-        //console.log("Réponse complète du serveur :", data);
+        console.log("Réponse complète du serveur :", data.hash);
 
         if (data.success) {
-            alert("Connexion réussie !");
+            //alert("Connexion réussie !");
             // Stockage
             localStorage.setItem("token", data.token);
             localStorage.setItem("user", JSON.stringify(data.user));
 
             console.log("Utilisateur stocké :", data.user);
 
-            window.location.href = "/acceuil.html";
+            window.location.href = "/accueil.html";
 
         } else {
             alert("Utilisateur ou mot de passe incorrect");
