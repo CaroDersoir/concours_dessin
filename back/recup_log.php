@@ -1,6 +1,5 @@
 <?php
 
-// Back/Recup_log.php
 header('Content-Type: application/json; charset=utf-8');
 
 require_once __DIR__ . '/db.php'; // Doit fournir $pdo (PDO connecté en FETCH_ASSOC)
@@ -38,10 +37,60 @@ try {
     $stmt->execute([':login' => $login]);
     $user = $stmt->fetch();
 
+
+    $hash = password_hash($password, PASSWORD_DEFAULT);
+
+    if ($hash === false) {
+        json_response(['success' => false, 'error' => 'HASHING_ERROR'], 500);
+    }
+
+$motDePasseValide = false;
+
+// Vérifier que l'utilisateur existe
+if (!$user || !isset($user['motDePasse'])) {
+    json_response(['success' => false, 'error' => 'INVALID_CREDENTIALS'], 401);
+}
+
+// Récupérer le hash/mot de passe stocké
+$hashEnBase = $user['motDePasse'];
+
+// Cas 1 : mot de passe hashé
+if (password_verify($password, $hashEnBase)) {
+    $motDePasseValide = true;
+
+    // Rehash si nécessaire
+    if (password_needs_rehash($hashEnBase, PASSWORD_DEFAULT)) {
+        $nouveauHash = password_hash($password, PASSWORD_DEFAULT);
+        $stmt = $pdo->prepare("UPDATE Utilisateur SET motDePasse = :mdp WHERE numUtilisateur = :id");
+        $stmt->execute([
+            'mdp' => $nouveauHash,
+            'id' => $user['numUtilisateur']
+        ]);
+    }
+}
+// Cas 2 : mot de passe en clair
+elseif ($password === $hashEnBase) {
+    $motDePasseValide = true;
+
+    // Migrer vers hash
+    $nouveauHash = password_hash($password, PASSWORD_DEFAULT);
+    $stmt = $pdo->prepare("UPDATE Utilisateur SET motDePasse = :mdp WHERE numUtilisateur = :id");
+    $stmt->execute([
+        'mdp' => $nouveauHash,
+        'id' => $user['numUtilisateur']
+    ]);
+}
+
+// Si aucun des deux n'est valide
+if (!$motDePasseValide) {
+    json_response(['success' => false, 'error' => 'INVALID_CREDENTIALS'], 401);
+}
+
+/*
     // Comparaison en clair (temporaire)
     if (!$user || !isset($user['motDePasse']) || $password !== $user['motDePasse']) {
         json_response(['success' => false, 'error' => 'INVALID_CREDENTIALS'], 401);
-    }
+    }*/
 
     // Génération d'un token opaque (simple)
     $token = $user['login'] . '_' . $user['nom']; 
@@ -49,6 +98,7 @@ try {
     json_response([
         'success' => true,
         'token'   => $token,
+        'hash'    => $hash,
         'user'    => [
             'id'      => (int)$user['numUtilisateur'],
             'login'   => $user['login'],
@@ -65,4 +115,3 @@ try {
     // error_log('APP ERROR: ' . $e->getMessage());
     json_response(['success' => false, 'error' => 'SERVER_ERROR'], 500);
 }
-
