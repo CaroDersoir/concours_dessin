@@ -51,6 +51,7 @@ try {
         SELECT 
             d.numDessin,
             d.leDessin,
+            d.classement,
             ROUND(AVG(e.note), 2) AS moyenne
         FROM Dessin d
         LEFT JOIN Evaluation e ON e.numDessin = d.numDessin

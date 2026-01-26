@@ -1,3 +1,13 @@
+footer {
+    background-color: #ffffff;
+    text-align: center;
+    padding: 700px 0;
+    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.05);
+    color: #777;
+    font-size: 0.95em;
+}
+
+
 /* Layout global admin */
 .layout-admin {
     display: flex;

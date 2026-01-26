@@ -27,6 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("theme").textContent = data.concours.theme;
         document.getElementById("dateDebut").textContent = data.concours.dateDebut;
         document.getElementById("dateFin").textContent = data.concours.dateFin;
+        document.getElementById("classement").textContent = data.classement ?? "Non classé";
 
         // 🔹 Dessins du compétiteur
         const container = document.getElementById("dessins-container");
