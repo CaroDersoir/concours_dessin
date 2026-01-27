@@ -1,7 +1,13 @@
 <?php
 try {
-    $pdo = new PDO('mysql:host=localhost;dbname=concours_dessin;charset=utf8', 'root', '');
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $dsn = "mysql:host=127.0.0.1;port=3306;dbname=concours_dessin;charset=utf8mb4";
+    $pdo = new PDO($dsn, 'db_etu', 'N3twork!', [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        PDO::ATTR_EMULATE_PREPARES => false,
+    ]);
+
+    //echo "Connexion réussie !"; // juste pour tester
 
     // Vérifie que les données existent
     $id = $_POST['id'] ?? null;
