@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const links = document.querySelectorAll(".sidebar a");
+    const links = document.querySelectorAll(".sidebar-directeur a");
     const main = document.getElementById("main-content");
 
     // Fonction pour charger les sections via AJAX
@@ -61,6 +61,81 @@ document.addEventListener("DOMContentLoaded", () => {
                         }
                     });
                 });
+            }
+            if (section === "statistiques") {
+                console.log("Chargement des données statistiques...");
+                try {
+                    const resStats = await fetch('/back/administrateurStatistique.php');
+                    const result = await resStats.json();
+
+                    if (result.success) {
+                        const data = result.data;
+                        // On remplit les spans direct
+                        document.getElementById('enCours').textContent = data.concoursEnCours;
+                        document.getElementById('finis').textContent = data.concoursFini;
+                        document.getElementById('participants').textContent = data.participants;
+                        document.getElementById('dessins').textContent = data.dessins;
+                        document.getElementById('moyenne').textContent = data.moyenneNotes ?? 'N/A';
+
+                        // On remplit les clubs
+                        const clubsList = document.getElementById('clubs');
+                        clubsList.innerHTML = '';
+                        data.clubs.forEach(club => {
+                            const li = document.createElement('li');
+                            li.innerHTML = `<strong>${club.nomClub}</strong> (Dept: ${club.departement})<br>
+                                            <small style="margin-left:20px">Tel: ${club.numTelephone || 'Non renseigné'}</small>`;
+                            clubsList.appendChild(li);
+                        });
+                    }
+                } catch (err) {
+                    console.error("Erreur lors du remplissage des stats:", err);
+                }
+            }
+            if (section === "resultats") {
+                console.log("Chargement des concours du club...");
+                const token = localStorage.getItem("token");
+
+                try {
+                    const response = await fetch("/back/concoursClub.php", {
+                        method: "POST",
+                        body: new URLSearchParams({ utilisateur: token })
+                    });
+                    const data = await response.json();
+
+                    if (data.success) {
+                        const ulActuels = document.getElementById("concours-actuels");
+                        const ulPasses = document.getElementById("concours-passes");
+
+                        ulActuels.innerHTML = "";
+                        ulPasses.innerHTML = "";
+
+                        data.concours.forEach(c => {
+                            // On ne crée l'élément que si le club participe
+                            if (c.participe_club == 1) {
+                                const li = document.createElement("li");
+                                li.classList.add("concours-item");
+                                li.innerHTML = `
+                        <strong>${c.theme}</strong><br>
+                        Du ${c.dateDebut} au ${c.dateFin}<br>
+                        <em>État : ${c.etat}</em><br>
+                    `;
+
+                                // Si fini -> liste de droite, sinon -> liste de gauche
+                                if (c.etat === 'resultat' || c.etat === 'evalue' || new Date(c.dateFin) < new Date()) {
+                                    ulPasses.appendChild(li);
+                                } else {
+                                    ulActuels.appendChild(li);
+                                }
+                            }
+                        });
+
+                        // Petit message si rien à afficher
+                        if (ulActuels.innerHTML === "") ulActuels.innerHTML = "<li>Aucun concours en cours.</li>";
+                        if (ulPasses.innerHTML === "") ulPasses.innerHTML = "<li>Aucun historique.</li>";
+                    }
+                } catch (err) {
+                    console.error("Erreur chargement concours club:", err);
+                }
             }
 
         } catch (err) {

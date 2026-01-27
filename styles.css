@@ -382,28 +382,3 @@ main {
     flex-direction: column;
 }
 
-/* =========================
-   FORMULAIRES
-========================= */
-/*
-form {
-    margin-top: 20px;
-}
-form label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-}
-form input[type="text"],
-form input[type="email"],
-form input[type="password"],
-form select,
-form textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1em;
-}   
-*/

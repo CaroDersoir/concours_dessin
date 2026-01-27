@@ -78,14 +78,58 @@ class Formulaire {
         return $html;
     }
 
-    // SECTION RESULTATS → exemple
+    // SECTION RESULTATS
     public function renderResultats(): string {
-        return "<h2>Résultats du concours</h2><p>Les résultats apparaîtront ici une fois évalués.</p>";
+        return '<h2>Les concours du club</h2>
+        <div class="colonnes-concours-colonne">
+
+            <!-- Concours en cours -->
+            <div class="colonne" id="concoursInscrits">
+                <h3>Concours où vous êtes inscrit :</h3>
+                <ul id="concours-actuels">
+                    <!-- Rempli dynamiquement par JS -->
+                </ul>
+            </div>
+
+            <!-- Concours passés -->            
+            <div class="colonne" id="ancienParticipations">
+                <h3>Concours où vous avez participer :</h3>
+                <ul id="concours-passes">
+                    <!-- Rempli dynamiquement par JS -->
+                </ul>
+            </div>
+
+        </div>';
     }
 
-    // SECTION STATISTIQUES → exemple
+    // SECTION STATISTIQUES
     public function renderStats(): string {
-        return "<h2>Statistiques</h2><p>Graphiques et chiffres ici...</p>";
+        return '<h2>Statistiques de tous les concours</h2>
+
+            <div class="colonnes-concours">
+                <div class="colonne" id="Col1Statistique">
+                    <h3>Nombre de concours en cours : </h3>
+                    <p> <span id="enCours">...</span></p>
+
+                    <h3>Nombre total de participants :</h3>
+                    <p> <span id="participants">...</span></p>
+
+                    <h3>Moyenne de note :</h3>
+                    <p> <span id="moyenne">...</span></p>
+                </div>
+
+                <div class="colonne" id="Col2Statistique">
+                    <h3>Nombre de concours finis :</h3>
+                    <p> <span id="finis">...</span></p>
+                    
+                    <h3>Nombre total de dessins soumis :</h3>
+                    <p> <span id="dessins">...</span></p>
+                </div>
+            </div>
+
+            <h3>Clubs, leur département et leur numéro de téléphone :</h3>
+            <ul id="clubs"></ul>
+            <br>';
     }
 } 
 ?>
