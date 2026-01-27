@@ -345,3 +345,65 @@ footer {
         padding: 8px 12px;
     }
 }
+
+.layout {
+    display: flex;
+    flex : 1;
+    align-items: flex-start;
+}
+
+.sidebar {
+    position : sticky;
+    top: 100px;
+    width: 200px;
+    background-color: #7761e3;
+    color: #ecf0f1;
+    padding: 20px 10px;
+    min-height: calc(100vh - 120px);
+}
+
+.sidebar a {
+    color: #000000;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+
+main {
+    flex: 1;
+    padding: 30px;
+}
+
+.page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* =========================
+   FORMULAIRES
+========================= */
+/*
+form {
+    margin-top: 20px;
+}
+form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form select,
+form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}   
+*/
