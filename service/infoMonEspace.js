@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const user = data_info.user;
 
-        document.getElementById('mail').textContent    = user.login + "@exemple.com";
+        document.getElementById('mail').textContent    = user.email_utilisateur;
         document.getElementById('login').textContent   = user.login;
         document.getElementById('nom').textContent     = user.nom;
         document.getElementById('prenom').textContent  = user.prenom ?? '';
