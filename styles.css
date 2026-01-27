@@ -356,7 +356,7 @@ footer {
     position : sticky;
     top: 100px;
     width: 200px;
-    background-color: #7761e3;
+    background-color: #1e1e2f;
     color: #ecf0f1;
     padding: 20px 10px;
     min-height: calc(100vh - 120px);
