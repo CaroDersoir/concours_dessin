@@ -12,7 +12,7 @@
     <header>
         <h1>Le Grand Gribouillis</h1>
         <button id="loginBtn" class="btn login-btn">Se connecter</button>
-        
+
         <nav>
             <!-- Menu public -->
             <div class="dropdown">
@@ -55,8 +55,8 @@
             </ul>
         </aside>
 
-        <main>
-             <h2>Statistiques de tous les concours !</h2>
+        <main class="main-admin">
+            <h2>Statistiques de tous les concours !</h2>
 
             <div class="colonnes-concours">
 
@@ -80,20 +80,24 @@
                     <h3>Nombre total de dessins soumis :</h3>
                     <p> <span id="dessins">...</span></p>
 
-
                 </div>
+
+
 
             </div>
             <h3>Clubs, leur département et leur numéro de téléphone :</h3>
-            <ul id="clubs"></ul>
+            <ul id="clubs" class="clubs_admin"></ul>
             <br>
+            <br>
+
+
+            <!-- Lien vers le JS externe -->
+            <script src="/service/bpConnection.js"></script>
+            <script src="/service/nav_log.js"></script>
+            <script src="/service/administrateurStatistique.js"></script>
         </main>
     </div>
 
-    <!-- Lien vers le JS externe -->
-    <script src="/service/bpConnection.js"></script>
-    <script src="/service/nav_log.js"></script>
-    <script src="/service/administrateurStatistique.js"></script>
 
 
     <footer>

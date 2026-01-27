@@ -20,7 +20,7 @@ try {
     $resultats['concoursEnCours'] = (int) $stmt->fetch()['nb'];
 
     // 2️⃣ Nombre de concours fini
-    $sql = "SELECT COUNT(*) as nb FROM Concours WHERE etat = 'resultat'";
+    $sql = "SELECT COUNT(*) as nb FROM Concours WHERE etat IN ('resultat', 'evalue')";
     $stmt = $pdo->query($sql);
     $resultats['concoursFini'] = (int) $stmt->fetch()['nb'];
 
