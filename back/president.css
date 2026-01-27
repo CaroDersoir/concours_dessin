@@ -1,0 +1,60 @@
+
+/* Sidebar gauche */
+.sidebar-president {
+    width: 220px;
+    background-color: #1e1e2f;
+    color: white;
+    padding: 20px;
+}
+
+/* Titre */
+.sidebar-president h3 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Menu */
+.sidebar-president ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar-president  li {
+    margin-bottom: 15px;
+}
+
+.sidebar-president a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    display: block;
+    border-radius: 6px;
+}
+
+.sidebar-president a:hover {
+    background-color: #3a3a5e;
+}
+
+.colonnes-concours-colonne {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.colonne {
+    flex: 1;
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    min-height: 200px;
+}
+
+.concours-item {
+    list-style: none;
+    background: white;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-left: 4px solid #1e1e2f;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}

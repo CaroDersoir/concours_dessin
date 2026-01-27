@@ -7,7 +7,7 @@
     <title>Le Grand Gribouillis</title>
     <!-- Lien vers le fichier CSS -->
     <link rel="stylesheet" href="/styles.css">
-    <link rel="stylesheet" href="/role/directeur.css">
+    <link rel="stylesheet" href="/role/president.css">
     
 </head>
 
@@ -32,7 +32,7 @@
                 <div class="dropdown nav-private">
                     <button class="dropdown-btn">Mon Rôle</button>
                     <div class="dropdown-content">
-                        <a href="/role/president.html">Président</a>
+                        <a href="president.html">Président</a>
                         <a href="competiteur.html">Compétiteur</a>
                         <a href="directeur.html">Directeur</a>
                         <a href="evaluateur.html">Évaluateur</a>
@@ -52,18 +52,15 @@
 
         <div class="layout">
             <!-- menu à gauche -->
-            <nav class="sidebar sidebar-directeur">
+            <nav class="sidebar sidebar-president">
                 <ul>
-                    <li><a href="#" data-section="formulaire">Inscrire un membre</a></li>
-                    <li><a href="#" data-section="demandes">Demandes de participation</a></li>
-                    <li><a href="#" data-section="resultats">Informations sur concours</a></li>
                     <li><a href="#" data-section="statistiques">Statistiques</a></li>
                 </ul>
             </nav>
             <!-- contenu principal -->
             <main id="main-content">
-                <h2>Espace Directeur</h2>
-                <p>Bienvenue dans votre espace dédié aux fonctions de Directeur de concours.</p>
+                <h2>Espace Président</h2>
+                <p>Bienvenue dans votre espace dédié aux fonctions de Président de concours.</p>
                 <!-- Le contenu des sections sera chargé ici -->
             </main>
         </div>
@@ -78,7 +75,7 @@
         <!-- Lien vers les JS externes -->
         <script src="/service/bpConnection.js"></script>
         <script src="/service/nav_log.js"></script>
-        <script src="/serviceRole/directeurService.js"></script>
+        <script src="/serviceRole/presidentService.js"></script>
     </div>
 </body>
 
