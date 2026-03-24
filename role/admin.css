@@ -1,0 +1,93 @@
+/* =========================
+   STRUCTURE GLOBALE
+   ========================= */
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* =========================
+   LAYOUT ADMIN
+   ========================= */
+
+.layout-admin {
+    display: flex;
+    flex: 1; /* prend toute la hauteur entre header et footer */
+}
+
+/* =========================
+   SIDEBAR ADMIN
+   ========================= */
+
+.sidebar-admin {
+    width: 220px;
+    background-color: #1e1e2f;
+    color: white;
+    padding: 20px;
+}
+
+.sidebar-admin h3 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.sidebar-admin ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-admin li {
+    margin-bottom: 15px;
+}
+
+.sidebar-admin a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    display: block;
+    border-radius: 6px;
+}
+
+.sidebar-admin a:hover {
+    background-color: #3a3a5e;
+}
+
+/* =========================
+   CONTENU PRINCIPAL ADMIN
+   ========================= */
+
+.main-admin {
+    flex: 1; /* PREND TOUT L’ESPACE RESTANT */
+    padding: 40px 20px;
+    background-color: #f4f4f4;
+
+    display: flex;
+    flex-direction: column;
+}
+
+/* =========================
+   CONTENU SPÉCIFIQUE
+   ========================= */
+
+.clubs_admin {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 40px;
+}
+
+/* =========================
+   FOOTER
+   ========================= */
+
+footer {
+    background-color: #ffffff;
+    text-align: center;
+    padding: 20px 0;
+    color: #777;
+}

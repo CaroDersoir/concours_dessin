@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Grand Gribouillis</title>
+    <!-- Lien vers le fichier CSS -->
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Le Grand Gribouillis</h1>
+        <button id="loginBtn" class="btn login-btn">Se connecter</button>
+        
+        <nav>
+            <!-- Menu public -->
+            <div class="dropdown">
+                <button class="dropdown-btn">Menu</button>
+                <div class="dropdown-content">
+                    <a href="/accueil.html">Accueil</a>
+                    <a href="/apropos.html">À propos</a>
+                    <a href="/concours.html">Concours</a>
+                </div>
+            </div>
+
+            <!-- Menu privé -->
+            <div class="dropdown nav-private">
+                <button class="dropdown-btn">Mon Rôle</button>
+                <div class="dropdown-content">
+                    <a href="directeur.html">Président</a>
+                    <a href="/role/competiteur.html">Compétiteur</a>
+                    <a href="#">Directeur</a>
+                    <a href="/role/evaluateur.html">Évaluateur</a>
+                    <a href="/role/administrateur.html">Administrateur</a>
+                </div>
+            </div>
+
+            <!-- Lien privé -->
+            <a href="/utilisateur/monEspace.html" class="nav-private">Mon Espace</a>
+
+            <!-- Lien public -->
+            <a href="/contact.html">Contact</a> 
+        </nav>
+    </header>
+
+    <main>
+        <h2 id="titre-concours">Concours</h2>
+
+        <div id="infos-concours">
+            <p><strong>Thème :</strong> <span id="theme"></span></p>
+            <p><strong>Période :</strong>
+                <span id="dateDebut"></span> → <span id="dateFin"></span>
+            </p>
+            <p><strong>État :</strong> <span id="etat"></span></p>
+        </div>
+
+        <h3>Vos dessins</h3>
+        <div id="dessins-container" class="dessins-container">
+            <!-- Dessins existants -->
+        </div>
+
+        <h3>Ajouter un dessin</h3>
+        <form id="form-dessin" enctype="multipart/form-data">
+            <label>
+                Nom du dessin :
+                <input type="text" name="commentaire" required>
+            </label>
+            <br><br>
+
+            <label>
+                Fichier :
+                <input type="file" name="dessin" accept="image/*" required>
+            </label>
+
+            <input type="hidden" name="numConcours" id="numConcours">
+
+            <br><br>
+            <button type="submit" class="btn">Envoyer le dessin</button>
+        </form>
+    </main>
+
+
+    <!-- Lien vers le JS externe -->
+    <script src="/service/bpConnection.js"></script>
+    <script src="/service/nav_log.js"></script>
+    <script src="/service/concoursInscrit.js"></script>
+    
+
+
+    <footer>
+        <p>
+            © 2026 Le Grand Gribouillis <br>
+            Créé par DERSOIR Caroline / CHAUVEAU Rémi / GUILLET Bastien / LUCAS Elouan <br>
+        </p>
+    </footer>
+
+
+</body>
+</html>

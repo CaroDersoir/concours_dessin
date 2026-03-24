@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Grand Gribouillis</title>
+    <!-- Lien vers le fichier CSS -->
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Le Grand Gribouillis</h1>
+        <button id="loginBtn" class="btn login-btn">Se connecter</button>
+        
+        <nav>
+            <!-- Menu public -->
+            <div class="dropdown">
+                <button class="dropdown-btn">Menu</button>
+                <div class="dropdown-content">
+                    <a href="/accueil.html">Accueil</a>
+                    <a href="/apropos.html">À propos</a>
+                    <a href="/concours.html">Concours</a>
+                </div>
+            </div>
+
+            <!-- Menu privé -->
+            <div class="dropdown nav-private">
+                <button class="dropdown-btn">Mon Rôle</button>
+                <div class="dropdown-content">
+                    <a href="#">Président</a>
+                    <a href="competiteur.html">Compétiteur</a>
+                    <a href="directeur.html">Directeur</a>
+                    <a href="evaluateur.html">Évaluateur</a>
+                    <a href="administrateur.html">Administrateur</a>
+                </div>
+            </div>
+
+            <!-- Lien privé -->
+            <a href="/utilisateur/monEspace.html" class="nav-private">Mon Espace</a>
+
+            <!-- Lien public -->
+            <a href="Contact.html">Contact</a> 
+        </nav>
+    </header>
+
+    <main>
+        <h2>Bienvenue sur la page Evaluateur !</h2>
+        <h3><span id="evaluateur"></span></h3>
+
+        <div class="afficheEvaluateur" id="evaluateurAffichage" style="display:none;">
+            <p>En tant qu'évaluateur, vous avez la responsabilité cruciale d'examiner et de juger les œuvres soumises dans le cadre de nos concours artistiques. Votre rôle est essentiel pour garantir l'intégrité et la qualité des évaluations, en veillant à ce que chaque œuvre soit analysée de manière juste et objective selon les critères établis.</p>
+
+            <p>Vous serez amené à collaborer avec d'autres évaluateurs et à participer à des réunions pour discuter des œuvres et partager vos perspectives. Votre expertise et votre jugement contribueront à mettre en lumière les talents émergents et à promouvoir l'excellence artistique au sein de notre communauté.</p>
+
+            <p>Nous vous remercions pour votre engagement et votre contribution précieuse à la réussite de nos concours.</p>
+            
+            <div class="colonnes-concours"> 
+                <div class="colonne" id="ConcoursEvaluateurAFaire">
+                    <h3>Concours à évaluer en cours</h3>
+                    <ul id = "listeConcoursEvaluateurAFaire">
+                        <!-- Rempli dynamiquement par JS -->
+                    </ul>
+                </div>
+                
+                <div class="colonne" id="ConcoursEvaluateurFait">
+                    <h3>Concours déjà évalués</h3>
+                    <ul id = "listeConcoursEvaluateurFait">
+                        <!-- Rempli dynamiquement par JS -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+
+    </main>
+
+    <!-- Lien vers le JS externe -->
+    <script src="/service/bpConnection.js"></script>
+    <script src="/service/nav_log.js"></script>
+    <script src="/service/evaluateur.js"></script>
+
+    <footer>
+        <p>
+            © 2026 Le Grand Gribouillis <br>
+            Créé par DERSOIR Caroline / CHAUVEAU Rémi / GUILLET Bastien / LUCAS Elouan <br>
+        </p>
+    </footer>
+
+
+</body>
+</html>

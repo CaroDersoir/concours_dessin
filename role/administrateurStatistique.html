@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Grand Gribouillis</title>
+    <!-- Lien vers le fichier CSS -->
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/role/admin.css">
+</head>
+<body>
+    <header>
+        <h1>Le Grand Gribouillis</h1>
+        <button id="loginBtn" class="btn login-btn">Se connecter</button>
+
+        <nav>
+            <!-- Menu public -->
+            <div class="dropdown">
+                <button class="dropdown-btn">Menu</button>
+                <div class="dropdown-content">
+                    <a href="../accueil.html">Accueil</a>
+                    <a href="../apropos.html">À propos</a>
+                    <a href="../concours.html">Concours</a>
+                </div>
+            </div>
+
+            <!-- Menu privé -->
+            <div class="dropdown nav-private">
+                <button class="dropdown-btn">Mon Rôle</button>
+                <div class="dropdown-content">
+                    <a href="#">Président</a>
+                    <a href="competiteur.html">Compétiteur</a>
+                    <a href="directeur.html">Directeur</a>
+                    <a href="evaluateur.html">Évaluateur</a>
+                    <a href="administrateur.html">Administrateur</a>
+                </div>
+            </div>
+
+            <!-- Lien privé -->
+            <a href="/utilisateur/monEspace.html" class="nav-private">Mon Espace</a>
+
+            <!-- Lien public -->
+            <a href="../contact.html">Contact</a> 
+        </nav>
+    </header>
+
+    <div class="layout-admin">
+
+        <!-- MENU LATÉRAL GAUCHE -->
+        <aside class="sidebar-admin">
+            <ul>
+                <li><a href="administrateur.html">Principal</a></li>
+                <li><a href="administrateurCreeConcours.html">Créer un concours</a></li>
+                <li><a href="administrateurStatistique.html">Statistiques</a></li>
+            </ul>
+        </aside>
+
+        <main class="main-admin">
+            <h2>Statistiques de tous les concours !</h2>
+
+            <div class="colonnes-concours">
+
+                <div class="colonne" id="Col1Statistique">
+                    <h3>Nombre de concours en cours : </h3>
+                    <p> <span id="enCours">...</span></p>
+
+                    <h3>Nombre total de participants :</h3>
+                    <p> <span id="participants">...</span></p>
+
+                    <h3>Moyenne de note dans l'ensemble des concours :</h3>
+                    <p> <span id="moyenne">...</span></p>
+
+
+                </div>
+
+                <div class="colonne" id="Col2Statistique">
+                    <h3>Nombre de concours fini :</h3>
+                    <p> <span id="finis">...</span></p>
+                    
+                    <h3>Nombre total de dessins soumis :</h3>
+                    <p> <span id="dessins">...</span></p>
+
+                </div>
+
+
+
+            </div>
+            <h3>Clubs, leur département et leur numéro de téléphone :</h3>
+            <ul id="clubs" class="clubs_admin"></ul>
+            <br>
+            <br>
+
+
+            <!-- Lien vers le JS externe -->
+            <script src="/service/bpConnection.js"></script>
+            <script src="/service/nav_log.js"></script>
+            <script src="/service/administrateurStatistique.js"></script>
+        </main>
+    </div>
+
+
+
+    <footer>
+        <p>
+            © 2026 Le Grand Gribouillis <br>
+            Créé par DERSOIR Caroline / CHAUVEAU Rémi / GUILLET Bastien / LUCAS Elouan <br>
+        </p>
+    </footer>
+
+
+</body>
+</html>

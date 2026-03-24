@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Grand Gribouillis</title>
+    <!-- Lien vers le fichier CSS -->
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/role/admin.css">
+</head>
+<body>
+    <header>
+        <h1>Le Grand Gribouillis</h1>
+        <button id="loginBtn" class="btn login-btn">Se connecter</button>
+        
+        <nav>
+            <!-- Menu public -->
+            <div class="dropdown">
+                <button class="dropdown-btn">Menu</button>
+                <div class="dropdown-content">
+                    <a href="../accueil.html">Accueil</a>
+                    <a href="../apropos.html">À propos</a>
+                    <a href="../concours.html">Concours</a>
+                </div>
+            </div>
+
+            <!-- Menu privé -->
+            <div class="dropdown nav-private">
+                <button class="dropdown-btn">Mon Rôle</button>
+                <div class="dropdown-content">
+                    <a href="#">Président</a>
+                    <a href="competiteur.html">Compétiteur</a>
+                    <a href="directeur.html">Directeur</a>
+                    <a href="evaluateur.html">Évaluateur</a>
+                    <a href="administrateur.html">Administrateur</a>
+                </div>
+            </div>
+
+            <!-- Lien privé -->
+            <a href="/utilisateur/monEspace.html" class="nav-private">Mon Espace</a>
+
+            <!-- Lien public -->
+            <a href="../contact.html">Contact</a> 
+        </nav>
+    </header>
+
+    <div class="layout-admin">
+
+        <!-- MENU LATÉRAL GAUCHE -->
+        <aside class="sidebar-admin">
+            <ul>
+                <li><a href="administrateur.html">Principal</a></li>
+                <li><a href="administrateurCreeConcours.html">Créer un concours</a></li>
+                <li><a href="administrateurStatistique.html">Statistiques</a></li>
+            </ul>
+        </aside>
+
+        <main>
+            <h1>Créer un nouveau concours</h1>
+
+            <form id="formConcours">
+                <label for="theme">Thème du concours :</label>
+                <input type="text" id="theme" name="theme" required><br><br>
+
+                <label for="dateDebut">Date de début :</label>
+                <input type="date" id="dateDebut" name="dateDebut" required><br><br>
+
+                <label for="dateFin">Date de fin :</label>
+                <input type="date" id="dateFin" name="dateFin" required><br><br>
+
+                <label for="etat">État du concours :</label>
+                <select id="etat" name="etat" required>
+                    <option value="en_cours">pas commencé</option>
+                    <option value="en_cours">En cours</option>
+                    <option value="fini">Fini</option>
+                    <option value="à_venir">À venir</option>
+                </select><br><br>
+
+                <label for="president">Président (nom d'utilisateur) :</label>
+                <input type="text" id="president" name="president" required><br><br>
+
+                <button type="submit" class="btn">Créer le concours</button>
+            <p id="message"></p>
+        </main>
+    </div>
+
+    <!-- Lien vers le JS externe -->
+    <script src="/service/bpConnection.js"></script>
+    <script src="/service/nav_log.js"></script>
+    <script src="/service/administrateurCreeConcours.js"></script>
+    
+
+    <footer>
+        <p>
+            © 2026 Le Grand Gribouillis <br>
+            Créé par DERSOIR Caroline / CHAUVEAU Rémi / GUILLET Bastien / LUCAS Elouan <br>
+        </p>
+    </footer>
+
+
+</body>
+</html>

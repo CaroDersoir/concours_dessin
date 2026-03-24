@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Contact - Le Grand Gribouillis</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+
+        <header>
+            <h1>Le Grand Gribouillis</h1>
+
+            <button id="loginBtn" class="btn login-btn">Se connecter</button>
+
+            <nav>
+                <!-- Menu public -->
+                <div class="dropdown">
+                    <button class="dropdown-btn">Menu</button>
+                    <div class="dropdown-content">
+                        <a href="accueil.html">Accueil</a>
+                        <a href="apropos.html">À propos</a>
+                        <a href="concours.html">Concours</a>
+                    </div>
+                </div>
+
+                <!-- Menu privé -->
+                <div class="dropdown nav-private">
+                    <button class="dropdown-btn">Mon Rôle</button>
+                    <div class="dropdown-content">
+                        <a href="#">Président</a>
+                        <a href="/role/competiteur.html">Compétiteur</a>
+                        <a href="/role/directeur.html">Directeur</a>
+                        <a href="/role/evaluateur.html">Évaluateur</a>
+                        <a href="/role/administrateur.html">Administrateur</a>
+                    </div>
+                </div>
+
+                <!-- Lien privé -->
+                <a href="/utilisateur/monEspace.html" class="nav-private">Mon Espace</a>
+
+                <!-- Lien public -->
+                <a href="contact.html">Contact</a> 
+            </nav>
+        </header>
+
+        <main>
+            <h2>Nous contacter</h2>
+            <p>Une question sur le concours ? Une envie de participer ? Contacte-nous !</p>
+            <section class="contact-info">
+                <p><strong>📧 Email :</strong> 
+                    <a href="mailto:contact@legrandgribouillis.fr">contact@legrandgribouillis.fr</a>
+                </p>
+
+                <br>
+                <p><strong>📞 Téléphone :</strong> 
+                    <a href="tel:+33642178933">+33 6 42 17 89 33</a>
+                </p>
+                <br>
+                <p><strong>📍 Adresse :</strong> 10 Bd Jean Jeanneteau, 49100 Angers, France</p>
+
+                <button id="openMapsBtn" class="btn">Ouvrir dans Maps</button>
+                <br><br>
+            </section>
+
+        </main>
+
+        <!-- Lien vers le JS externe -->
+        <script src="/service/contact.js"></script>
+        <script src="/service/bpConnection.js"></script>
+        <script src="/service/nav_log.js"></script>
+
+
+        <footer>
+            <p>
+                © 2026 Le Grand Gribouillis <br>
+                Créé par DERSOIR Caroline / CHAUVEAU Rémi / GUILLET Bastien / LUCAS Elouan
+            </p>
+        </footer>
+
+    </body>
+</html>

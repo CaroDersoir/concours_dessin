@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Le Grand Gribouillis</title>
+        <!-- Lien vers le fichier CSS -->
+        <link rel="stylesheet" href="/styles.css">
+        
+    </head>
+    <body> 
+        <header>
+            <h1>Mon espace </h1>
+
+            <button id="loginBtn" class="btn login-btn">Se connecter</button>
+            
+            <nav>
+                <!-- Menu public -->
+                <div class="dropdown">
+                    <button class="dropdown-btn">Menu</button>
+                    <div class="dropdown-content">
+                        <a href="/accueil.html">Accueil</a>
+                        <a href="/apropos.html">À propos</a>
+                        <a href="/concours.html">Concours</a>
+                    </div>
+                </div>
+
+                <!-- Menu privé -->
+                <div class="dropdown nav-private">
+                    <button class="dropdown-btn">Mon Rôle</button>
+                    <div class="dropdown-content">
+                        <a href="#">Président</a>
+                        <a href="/role/competiteur.html">Compétiteur</a>
+                        <a href="/role/directeur.html">Directeur</a>
+                        <a href="/role/evaluateur.html">Évaluateur</a>
+                        <a href="/role/administrateur.html">Administrateur</a>
+                    </div>
+                </div>
+
+                <!-- Lien privé -->
+                <a href="monEspace.html" class="nav-private">Mon Espace</a>
+
+                <!-- Lien public -->
+                <a href="/contact.html">Contact</a> 
+            </nav>
+        </header>
+
+        <main>
+
+            <h2>Bienvenue dans votre espace</h2>
+            <div class="colonnes-concours"> 
+                <div class="colonne" id="indormation1">
+                    <h3>Vos informations :</h3>
+                    <ul>
+                        <li>Mail : <span id="mail"></span></li>
+                        <li>Nom : <span id="nom"></span></li>
+                        <li>Prénom : <span id="prenom"></span></li>
+                    </ul>
+                </div>
+                <div class="colonne" id="indormation2">
+                    <br><br><br>
+                    <ul>
+                        <li>Nom d'utilisateur : <span id="login"></span></li>
+                        <li>Adresse : <span id="adresse"></span></li>
+                        <li>Numéro de club : <span id="numClub"></span></li>
+                    </ul>
+                </div>
+            </div>
+            
+            
+            <p>
+                <button id="changePwdBtn" class="btn">Changer mot de passe</button>
+            </p>
+
+            <div class="colonnes-concours">
+
+                <!-- Concours en cours -->
+                <div class="colonne" id="concoursInscrits">
+                    <h3>Concours en cours</h3>
+                    <ul id="concours-actuels">
+                        <!-- Rempli dynamiquement par JS -->
+                    </ul>
+                </div>
+
+                <!-- Concours passés -->
+                <div class="colonne" id="ancienneParticipations">
+                    <h3>Concours passés</h3>
+                    <ul id="concours-passes">
+                        <!-- Rempli dynamiquement par JS -->
+                    </ul>
+                </div>
+
+            </div>
+
+        </main>
+
+        <!-- Modal pour changer le mot de passe -->
+        <div id="pwdModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3>Changer le mot de passe</h3>
+                <form id="pwdForm">
+                    <label for="oldPwd">Ancien mot de passe :</label>
+                    <input type="password" id="oldPwd" required>
+                    <br>
+                    <label for="newPwd">Nouveau mot de passe :</label>
+                    <input type="password" id="newPwd" required>
+                    <br>
+                    <label for="confirmPwd">Confirmer le nouveau mot de passe :</label>
+                    <input type="password" id="confirmPwd" required>
+                    
+                    <button type="submit" class="btn">Valider</button>
+                </form>
+                <p id="pwdMsg" style="color:red; margin-top:10px;"></p>
+            </div>
+        </div>
+
+        <footer>
+            <p>
+                © 2026 Le Grand Gribouillis <br>
+                Créé par DERSOIR Caroline / CHAUVEAU Rémi / GUILLET Bastien / LUCAS Elouan <br>
+            </p>
+        </footer>
+    </body>
+    <script src="/service/bpConnection.js"></script>
+    <script src="/service/changer_mdp.js"></script>
+    <script src="/service/nav_log.js"></script>
+    <script src="/service/infoMonEspace.js"></script>
+    <script src="/service/concourUtil.js"></script>
+</html>
