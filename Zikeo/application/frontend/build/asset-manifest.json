@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/static/css/main.eac969bf.css",
+    "main.js": "/static/js/main.0da3a545.js",
+    "static/media/go.png": "/static/media/go.80d1ee3951fec94b4402.png",
+    "static/media/logo_partition.png": "/static/media/logo_partition.39f07c8097257da31fee.png",
+    "index.html": "/index.html",
+    "main.eac969bf.css.map": "/static/css/main.eac969bf.css.map",
+    "main.0da3a545.js.map": "/static/js/main.0da3a545.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.eac969bf.css",
+    "static/js/main.0da3a545.js"
+  ]
+}

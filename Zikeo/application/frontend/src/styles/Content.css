@@ -1,0 +1,102 @@
+/* Content.css */
+
+.merch {
+    display: grid;
+    gap: 32px;
+}
+
+.merch__banner {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 24px;
+    align-items: stretch;
+}
+
+.merch__banner__text {
+    display: grid;
+    gap: 12px;
+}
+
+.merch__eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.7rem;
+    color: var(--secondary);
+}
+
+.merch__subtitle {
+    margin: 0;
+    max-width: 38ch;
+    color: var(--text);
+    opacity: 0.75;
+}
+
+.merch__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.merch__banner__card {
+    position: relative;
+    padding: 24px;
+    display: grid;
+    gap: 10px;
+    background: linear-gradient(140deg, var(--merch-banner-start), var(--merch-banner-end));
+    overflow: hidden;
+}
+
+.merch__banner__glow {
+    position: absolute;
+    inset: -40%;
+    background: radial-gradient(circle, var(--merch-banner-glow), transparent 60%);
+    filter: blur(10px);
+    pointer-events: none;
+}
+
+.merch__banner__label {
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 0.7rem;
+    color: var(--secondary);
+}
+
+.merch__banner__name {
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+.merch__banner__price {
+    font-size: 1.1rem;
+    color: var(--primary);
+}
+
+.merch__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 24px;
+    align-items: start;
+}
+
+.merch__products {
+    min-width: 0;
+}
+
+.merch__cart {
+    position: sticky;
+    top: 24px;
+}
+
+@media (max-width: 1000px) {
+    .merch__banner {
+        grid-template-columns: 1fr;
+    }
+
+    .merch__layout {
+        grid-template-columns: 1fr;
+    }
+
+    .merch__cart {
+        position: static;
+    }
+}

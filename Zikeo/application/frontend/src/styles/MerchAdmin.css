@@ -1,0 +1,175 @@
+.merch-admin {
+    display: grid;
+    gap: 20px;
+}
+
+.merch-admin__topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.merch-admin__panel {
+    display: grid;
+    gap: 14px;
+}
+
+.merch-admin__subtitle {
+    margin: 0;
+    color: var(--primary);
+    font-family: 'Orbitron', 'Rajdhani', sans-serif;
+}
+
+.merch-admin__form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 12px;
+}
+
+.merch-admin__search {
+    max-width: 500px;
+}
+
+.merch-admin__textarea {
+    min-height: 84px;
+    resize: vertical;
+}
+
+.merch-admin__checkbox {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.merch-admin__list {
+    display: grid;
+    gap: 14px;
+}
+
+.merch-admin__feedback {
+    margin: 0;
+    color: var(--secondary);
+    font-weight: 600;
+}
+
+.merch-admin__empty {
+    margin: 0;
+    opacity: 0.8;
+}
+
+.merch-admin__list-item {
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.merch-admin__list-item__media {
+    width: 72px;
+    height: 72px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.merch-admin__list-item__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.merch-admin__list-item__placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    text-align: center;
+    padding: 8px;
+    color: rgba(230, 246, 255, 0.7);
+}
+
+.merch-admin__list-item__info {
+    flex: 1;
+    min-width: 0;
+}
+
+.merch-admin__list-item__name {
+    margin: 0;
+    font-size: 1.1rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.merch-admin__list-item__actions {
+    display: inline-flex;
+    gap: 8px;
+}
+
+.merch-admin__icon-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: rgba(10, 16, 30, 0.85);
+    color: var(--text);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.merch-admin__icon-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.merch-admin__icon-btn:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.merch-admin__icon-btn__danger:hover {
+    border-color: #ff5f5f;
+    color: #ff5f5f;
+}
+
+.merch-admin__modal__overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 40;
+    padding: 20px;
+}
+
+.merch-admin__modal__content {
+    width: min(920px, 100%);
+    max-height: 90vh;
+    overflow: auto;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px;
+    box-shadow: 0 24px 38px rgba(0, 0, 0, 0.45);
+}
+
+.merch-admin__modal__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.merch-admin__modal__actions {
+    display: flex;
+    justify-content: flex-end;
+}
