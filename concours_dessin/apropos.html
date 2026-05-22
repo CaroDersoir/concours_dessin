@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Grand Gribouillis</title>
+    <!-- Lien vers le fichier CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Le Grand Gribouillis</h1>
+
+        <button id="loginBtn" class="btn login-btn">Se connecter</button>
+
+        <nav>
+            <!-- Menu public -->
+            <div class="dropdown">
+                <button class="dropdown-btn">Menu</button>
+                <div class="dropdown-content">
+                    <a href="accueil.html">Accueil</a>
+                    <a href="apropos.html">À propos</a>
+                    <a href="concours.html">Concours</a>
+                </div>
+            </div>
+
+            <!-- Menu privé -->
+            <div class="dropdown nav-private">
+                <button class="dropdown-btn">Mon Rôle</button>
+                <div class="dropdown-content">
+                    <a href="#">Président</a>
+                    <a href="/role/competiteur.html">Compétiteur</a>
+                    <a href="/role/directeur.html">Directeur</a>
+                    <a href="/role/evaluateur.html">Évaluateur</a>
+                    <a href="/role/administrateur.html">Administrateur</a>
+                </div>
+            </div>
+
+            <!-- Lien privé -->
+            <a href="/utilisateur/monEspace.html" class="nav-private">Mon Espace</a>
+
+            <!-- Lien public -->
+            <a href="contact.html">Contact</a> 
+        </nav>
+    </header>
+
+    <main>
+        <h2>À propos du concours</h2>
+
+        <p>
+            <strong>Le Grand Gribouillis</strong> est un concours de dessin unique en son genre,
+            où la créativité et l’originalité sont à l’honneur.  
+            Que vous soyez amateur de gribouillages, passionné de dessin, ou simplement curieux,
+            vous êtes invités à participer et à exprimer votre imagination sans limite.
+        </p>
+
+        <h3>🎨 Pour qui ?</h3>
+        <p>
+            Tout le monde peut participer ! Il n’y a pas de limite d’âge ni de niveau.
+            L’important est de prendre plaisir à créer et à partager votre univers.  
+            Les dessins peuvent être réalisés au crayon, au stylo, à l’encre, à l’aquarelle, ou même
+            sur tablette graphique : toutes les techniques sont les bienvenues.
+        </p>
+
+        <h3>😆 L’esprit du concours</h3>
+        <p>
+            Le Grand Gribouillis n’est pas un concours sérieux, c’est un espace pour rire, oser et expérimenter.  
+            Les participants sont encouragés à explorer des idées absurdes, à créer des personnages loufoques,
+            à inventer des scènes cocasses ou à transformer le quotidien en moment hilarant.  
+            Ici, plus c’est original, mieux c’est !
+        </p>
+
+        <h3>💡 Pourquoi participer ?</h3>
+        <p>
+            Participer au Grand Gribouillis, c’est : 
+            <ul>
+                <li>Exprimer sa créativité librement</li>
+                <li>Se dépasser et tester de nouvelles idées</li>
+                <li>Partager son univers avec d’autres passionnés</li>
+                <li>Vivre une expérience ludique et amusante</li>
+            </ul>
+            Que vous soyez un petit curieux ou un grand artiste, ce concours est l’occasion de s’amuser
+            et de créer des souvenirs mémorables.
+        </p>
+
+        <p>
+            Alors prenez vos crayons, vos pinceaux ou votre tablette et rejoignez l’aventure !
+            Le Grand Gribouillis vous attend pour des créations pleines d’humour et de fantaisie.
+        </p>
+    </main>
+
+    <!-- Lien vers le JS externe -->
+    <script src="/service/bpConnection.js"></script>
+    <script src="/service/nav_log.js"></script>
+
+
+    <footer>
+        <p>
+            © 2026 Le Grand Gribouillis <br>
+            Créé par DERSOIR Caroline / CHAUVEAU Rémi / GUILLET Bastien / LUCAS Elouan <br>
+        </p>
+    </footer>
+</body>
+</html>
