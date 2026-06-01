@@ -1,0 +1,2 @@
+ALTER TABLE customer
+    ADD COLUMN est_professeur TINYINT(1) NOT NULL DEFAULT 0;

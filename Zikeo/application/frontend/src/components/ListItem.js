@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import AddItem from './AddItem';
+import ItemEdit from './ItemEdit';
 
 function EditIcon() {
     return (
@@ -23,12 +23,8 @@ function DeleteIcon() {
     );
 }
 
-function ListItem({item, onSave, onDelete, genres, categories}) {
+function ListItem({item, onSaved, onDelete}) {
     const [isEditOpen, setIsEditOpen] = useState(false);
-
-    async function handleSave(updatedValues) {
-        return onSave(item.id, updatedValues);
-    }
 
     function handleDelete() {
         if (window.confirm(`Supprimer "${item.name}" ?`)) {
@@ -49,6 +45,34 @@ function ListItem({item, onSave, onDelete, genres, categories}) {
 
                 <div className="merch-admin__list-item__info">
                     <h3 className="merch-admin__list-item__name">{item.name || 'Sans nom'}</h3>
+                    <table className="merch-admin__list-item__details">
+                        <tbody>
+                        <tr>
+                            <td>Prix</td>
+                            <td>{item.price != null ? `${item.price} €` : '—'}</td>
+                            <td>Stock</td>
+                            <td>{item.stock ?? '—'}</td>
+                        </tr>
+                        <tr>
+                            <td>Catégorie</td>
+                            <td>{item.category || '—'}</td>
+                            <td>Genre</td>
+                            <td>{item.gender || '—'}</td>
+                        </tr>
+                        <tr>
+                            <td>Taille</td>
+                            <td>{item.size || '—'}</td>
+                            <td>Confort</td>
+                            <td>{item.comfort != null ? item.comfort : '—'}</td>
+                        </tr>
+                        {item.onSale && (
+                            <tr>
+                                <td>Promo</td>
+                                <td>Oui</td>
+                            </tr>
+                        )}
+                        </tbody>
+                    </table>
                 </div>
 
                 <div className="merch-admin__list-item__actions">
@@ -73,15 +97,11 @@ function ListItem({item, onSave, onDelete, genres, categories}) {
                 </div>
             </article>
 
-            <AddItem
+            <ItemEdit
                 isOpen={isEditOpen}
+                item={item}
                 onClose={() => setIsEditOpen(false)}
-                onSubmit={handleSave}
-                genres={genres}
-                categories={categories}
-                initialValues={item}
-                title="Modifier un article"
-                submitLabel="Enregistrer"
+                onSaved={onSaved}
             />
         </>
     );

@@ -1,38 +1,10 @@
 import {useEffect, useState} from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import AddItem from '../components/AddItem';
+import ItemEdit from '../components/ItemEdit';
 import ListItem from '../components/ListItem';
+import {deleteItem, getAllItems} from '../service/itemsServiceFront';
 import '../styles/MerchAdmin.css';
-
-const API_URL = `${process.env.REACT_APP_API_URL}/api/items`;
-
-const GENRES = ['femme', 'homme', 'neutre'];
-const CATEGORIES = [
-    'pantalon',
-    'robe',
-    't-shirt',
-    'chemise',
-    'blouse',
-    'polo',
-    'pull',
-    'sweat',
-    'chaussures',
-    'ceinture',
-    'manteau'
-];
-
-const newItemTemplate = {
-    name: '',
-    price: '',
-    size: '',
-    comfort: '',
-    onSale: false,
-    description: '',
-    gender: 'neutre',
-    category: 't-shirt',
-    stock: 0
-};
 
 function MerchAdmin() {
     const [items, setItems] = useState([]);
@@ -44,9 +16,8 @@ function MerchAdmin() {
     async function loadItems() {
         setLoading(true);
         try {
-            const response = await fetch(API_URL);
-            const data = await response.json();
-            setItems(Array.isArray(data) ? data : []);
+            const data = await getAllItems();
+            setItems(data);
         } catch (error) {
             setFeedback('Impossible de charger les articles.');
         } finally {
@@ -58,85 +29,14 @@ function MerchAdmin() {
         loadItems();
     }, []);
 
-    async function addItem(itemValues) {
-        setFeedback('');
-
-        const payload = {
-            ...itemValues,
-            price: Number(itemValues.price),
-            comfort: itemValues.comfort === '' ? null : Number(itemValues.comfort),
-            stock: Number(itemValues.stock)
-        };
-
-        try {
-            const response = await fetch(API_URL, {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(payload)
-            });
-
-            if (!response.ok) {
-                const error = await response.json();
-                setFeedback(error.error || 'Erreur lors de la creation.');
-                return false;
-            }
-
-            setFeedback('Article ajoute.');
-            await loadItems();
-            return true;
-        } catch (error) {
-            setFeedback('Erreur lors de la creation.');
-            return false;
-        }
-    }
-
-    async function saveItem(itemId, itemValues) {
-        setFeedback('');
-
-        const payload = {
-            ...itemValues,
-            price: Number(itemValues.price),
-            comfort: itemValues.comfort === '' || itemValues.comfort === null ? null : Number(itemValues.comfort),
-            stock: Number(itemValues.stock)
-        };
-
-        try {
-            const response = await fetch(`${API_URL}/${itemId}`, {
-                method: 'PUT',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(payload)
-            });
-
-            if (!response.ok) {
-                const error = await response.json();
-                setFeedback(error.error || 'Erreur lors de la mise a jour.');
-                return false;
-            }
-
-            setFeedback(`Article #${itemId} mis a jour.`);
-            await loadItems();
-            return true;
-        } catch (error) {
-            setFeedback('Erreur lors de la mise a jour.');
-            return false;
-        }
-    }
-
     async function removeItem(id) {
         setFeedback('');
         try {
-            const response = await fetch(`${API_URL}/${id}`, {method: 'DELETE'});
-
-            if (!response.ok) {
-                const error = await response.json();
-                setFeedback(error.error || 'Erreur lors de la suppression.');
-                return;
-            }
-
-            setFeedback(`Article #${id} supprime.`);
+            await deleteItem(id);
+            setFeedback(`Article #${id} supprimé.`);
             await loadItems();
         } catch (error) {
-            setFeedback('Erreur lors de la suppression.');
+            setFeedback(error.message);
         }
     }
 
@@ -150,7 +50,7 @@ function MerchAdmin() {
             <main className="page__content merch-admin">
                 <section className="merch-admin__topbar">
                     <h1 className="page__title">Gestion merch</h1>
-                    <button className="btn" onClick={() => setIsAddOpen(true)}>AddItem</button>
+                    <button className="btn" onClick={() => setIsAddOpen(true)}>Ajouter</button>
                 </section>
 
                 <section className="page__section merch-admin__panel">
@@ -168,27 +68,20 @@ function MerchAdmin() {
                             <ListItem
                                 key={item.id}
                                 item={item}
-                                onSave={saveItem}
+                                onSaved={loadItems}
                                 onDelete={removeItem}
-                                genres={GENRES}
-                                categories={CATEGORIES}
                             />
                         ))}
                         {!loading && filteredItems.length === 0 ? (
-                            <p className="merch-admin__empty">Aucun item trouve.</p>
+                            <p className="merch-admin__empty">Aucun item trouvé.</p>
                         ) : null}
                     </div>
                 </section>
 
-                <AddItem
+                <ItemEdit
                     isOpen={isAddOpen}
                     onClose={() => setIsAddOpen(false)}
-                    onSubmit={addItem}
-                    genres={GENRES}
-                    categories={CATEGORIES}
-                    initialValues={newItemTemplate}
-                    title="Ajouter un article"
-                    submitLabel="Ajouter"
+                    onSaved={loadItems}
                 />
             </main>
             <Footer/>

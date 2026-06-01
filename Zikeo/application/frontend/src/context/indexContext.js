@@ -1,8 +1,8 @@
-import {useState, createContext, useEffect} from "react";
+import {createContext, useEffect, useState} from "react";
 
-export const PreferencesContext = createContext();
+export const OptionContext = createContext();
 
-export const PreferencesProvider = ({ children }) => {
+export const OptionProvider = ({children}) => {
 
     const [mode, setMode] = useState(() => {
         return localStorage.getItem('theme') || 'ocean'; // valeur par défaut
@@ -14,8 +14,8 @@ export const PreferencesProvider = ({ children }) => {
     }, [mode]);
 
     return (
-        <PreferencesContext.Provider value={{ mode, setMode }}>
+        <OptionContext.Provider value={{mode, setMode}}>
             {children}
-        </PreferencesContext.Provider>
+        </OptionContext.Provider>
     )
 }

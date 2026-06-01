@@ -15,7 +15,7 @@ exports.createItem = async (item) => {
 };
 
 exports.updateItem = async (id, item) => {
-    return await itemsModel.update(id, item);
+    return await itemsModel.updateItem(id, item);
 };
 
 exports.updateItemStock = async (id, stock) => {
@@ -25,3 +25,4 @@ exports.updateItemStock = async (id, stock) => {
 exports.deleteItem = async (id) => {
     return await itemsModel.delete(id);
 };
+

@@ -1,12 +1,11 @@
-const BASE_URL = `${process.env.REACT_APP_API_URL}/api/partitions`;
+// Service partitions — lecture et suppression sur /api/partitions
+import api from './api';
 
 export const getAllPartitions = async () => {
-    const response = await fetch(BASE_URL);
-    if (!response.ok) throw new Error(`Erreur serveur : ${response.status}`);
-    return response.json();
+    const {data} = await api.get('/api/partitions');
+    return data;
 };
 
 export const deletePartition = async (id) => {
-    const response = await fetch(`${BASE_URL}/${id}`, {method: 'DELETE'});
-    if (!response.ok) throw new Error(`Erreur serveur : ${response.status}`);
+    await api.delete(`/api/partitions/${id}`);
 };

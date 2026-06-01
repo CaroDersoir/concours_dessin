@@ -12,14 +12,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// routes
-// const itemsRoutes = require('./routes/itemsRoutes');
-// app.use('/api/items', itemsRoutes);
-
 app.use('/api', require('./routes'));
 app.use('/images', express.static('images'));
 app.use('/documents', express.static('documents'));
 app.use('/others', express.static('others'));
+
 
 //middleware pour lire te transformer le corps des requêtes http
 // const bodyParser = require('body-parser'); → intégré dans express ajrd

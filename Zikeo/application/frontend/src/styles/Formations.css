@@ -1,0 +1,137 @@
+.lesson-catalog {
+    display: grid;
+    gap: 24px;
+}
+
+.lesson-catalog__error {
+    color: var(--secondary);
+    text-align: center;
+}
+
+.lesson-catalog__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+@media (max-width: 700px) {
+    .lesson-catalog__grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Bulle */
+.lesson-bubble {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.35);
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 0;
+    overflow: hidden;
+}
+
+.lesson-bubble__header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-soft);
+}
+
+.lesson-bubble__icon {
+    font-size: 1.6rem;
+    line-height: 1;
+    color: var(--primary);
+}
+
+.lesson-bubble__title {
+    margin: 0;
+    font-family: 'Orbitron', 'Rajdhani', sans-serif;
+    font-size: 1.05rem;
+    color: var(--primary);
+    text-shadow: 0 0 8px var(--glow);
+    letter-spacing: 0.04em;
+}
+
+.lesson-bubble__list {
+    display: grid;
+    gap: 12px;
+    padding: 20px 24px 24px;
+}
+
+.lesson-bubble__empty {
+    margin: 0;
+    opacity: 0.6;
+    font-size: 0.9rem;
+}
+
+/* Carte leçon */
+.lesson-card {
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    display: grid;
+    gap: 8px;
+    transition: border-color 0.2s;
+}
+
+.lesson-card:hover {
+    border-color: var(--primary);
+}
+
+.lesson-card--unavailable {
+    opacity: 0.55;
+}
+
+.lesson-card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+
+.lesson-card__name {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.lesson-card__level {
+    font-size: 0.72rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--primary);
+    white-space: nowrap;
+}
+
+.lesson-card__description {
+    margin: 0;
+    font-size: 0.85rem;
+    opacity: 0.7;
+    line-height: 1.4;
+}
+
+.lesson-card__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.lesson-card__price {
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.lesson-card__btn {
+    padding: 6px 14px;
+    font-size: 0.85rem;
+}

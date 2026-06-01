@@ -1,9 +1,9 @@
-import { useContext } from "react";
-import { PreferencesContext } from "../context/indexContext";
+import {useContext} from "react";
+import {OptionContext} from "../context/indexContext";
 
-function PageWrapper({ children }) {
+function PageWrapper({children}) {
 
-    const { mode } = useContext(PreferencesContext);
+    const {mode} = useContext(OptionContext);
 
     return (
         <div className={`${mode}__mode`}>

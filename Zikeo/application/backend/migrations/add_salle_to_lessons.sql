@@ -1,0 +1,2 @@
+ALTER TABLE lessons
+    ADD COLUMN salle VARCHAR(255) NOT NULL DEFAULT 'local';

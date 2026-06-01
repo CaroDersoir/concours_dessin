@@ -1,32 +1,18 @@
-const db = require('../config/db');
+/** requêtes sur la table partitions **/
+
+const Partition = require('../modelSequelize/partitionModelSq');
 
 exports.findAll = () => {
-    return new Promise((resolve, reject) => {
-        db.query('SELECT * FROM partitions ORDER BY created_at DESC', (err, results) => {
-            if (err) return reject(err);
-            resolve(results);
-        });
-    });
+    return Partition.findAll({ order: [['created_at', 'DESC']] })
+        .then(rows => rows.map(r => r.get({ plain: true })));
 };
 
 exports.create = (title, url) => {
-    return new Promise((resolve, reject) => {
-        db.query(
-            'INSERT INTO partitions (title, url) VALUES (?, ?)',
-            [title, url],
-            (err, results) => {
-                if (err) return reject(err);
-                resolve({id: results.insertId, title, url});
-            }
-        );
-    });
+    return Partition.create({ title, url })
+        .then(created => created.get({ plain: true }));
 };
 
 exports.delete = (id) => {
-    return new Promise((resolve, reject) => {
-        db.query('DELETE FROM partitions WHERE id = ?', [id], (err, results) => {
-            if (err) return reject(err);
-            resolve(results.affectedRows > 0);
-        });
-    });
+    return Partition.destroy({ where: { id } })
+        .then(affectedRows => affectedRows > 0);
 };

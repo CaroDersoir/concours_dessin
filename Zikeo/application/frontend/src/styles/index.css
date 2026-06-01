@@ -139,6 +139,44 @@ code {
 }
 
 
+/* ===== LUMIERE : Blanc chaud / Bleu ===== */
+.lumiere__mode {
+    --bg: #f6f4ef;
+    --bg-soft: #ece9e1;
+    --text: #1a1a1a;
+    --primary: #1d4ed8;
+    --secondary: #6d28d9;
+    --card: #ffffff;
+    --border: #d6d1c6;
+    --glow: rgba(29, 78, 216, 0.18);
+    --glow-secondary: rgba(109, 40, 217, 0.14);
+    --header-bg: rgba(246, 244, 239, 0.97);
+    --header-border: #d6d1c6;
+    --merch-banner-start: rgba(29, 78, 216, 0.10);
+    --merch-banner-end: rgba(109, 40, 217, 0.06);
+    --merch-banner-glow: rgba(29, 78, 216, 0.08);
+}
+
+.lumiere__mode .page__section,
+.lumiere__mode .card,
+.lumiere__mode .panel {
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+}
+
+.lumiere__mode .panel__item {
+    box-shadow: none;
+}
+
+.lumiere__mode .merch-admin__icon-btn {
+    background: var(--card);
+    color: var(--text);
+    border-color: var(--border);
+}
+
+.lumiere__mode .merch-admin__icon-btn:hover {
+    background: var(--bg-soft);
+}
+
 /* ===== BRIGHT : Rose / Pastel ===== */
 .rose__mode {
     --bg: #fff0f6;

@@ -1,14 +1,8 @@
-const db = require('../config/db');
+/** requêtes sur la table item_covers **/
+
+const ItemCover = require('../modelSequelize/coverModelSq');
 
 exports.addItemCover = (id, imageUrl) => {
-    return new Promise((resolve, reject) => {
-        db.query(
-            'INSERT INTO item_covers (item_id, url) VALUES (?, ?)',
-            [id, imageUrl],
-            (err, results) => {
-                if (err) return reject(err);
-                resolve(results.affectedRows > 0);
-            }
-        );
-    });
+    return ItemCover.create({ item_id: id, url: imageUrl })
+        .then(() => true);
 };

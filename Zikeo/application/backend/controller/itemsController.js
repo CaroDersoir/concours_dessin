@@ -1,12 +1,13 @@
 /** communique avec le frontend **/
 
 const itemsService = require('../service/itemsService');
+const Item = require("../modelSequelize/itemModelSq");
 
 const allowedGenders = new Set(['femme', 'homme', 'neutre']);
 const allowedCategories = new Set([
     'pantalon',
     'robe',
-    't-shirt',
+    'tshirt',
     'chemise',
     'blouse',
     'polo',
@@ -69,6 +70,7 @@ exports.getItems = async (req, res) => {
     }
 };
 
+
 exports.getItemById = async (req, res) => {
     try {
         const item = await itemsService.getItemById(req.params.id);
@@ -85,7 +87,7 @@ exports.getItemById = async (req, res) => {
 
 exports.createItem = async (req, res) => {
     try {
-        const { cover, on_sale, ...rest } = req.body;
+        const {cover, on_sale, ...rest} = req.body;
         const payload = {
             ...rest,
             price: Number(req.body.price),
@@ -110,33 +112,46 @@ exports.createItem = async (req, res) => {
 
 exports.updateItem = async (req, res) => {
     try {
-        const { cover, on_sale, ...rest } = req.body;
-        const payload = {
-            ...rest,
-            price: Number(req.body.price),
-            stock: Number(req.body.stock),
-            comfort: req.body.comfort !== undefined ? Number(req.body.comfort) : null,
-            onSale: req.body.onSale !== undefined ? Boolean(req.body.onSale) : Boolean(req.body.on_sale),
-            gender: req.body.gender ?? 'neutre',
-            category: req.body.category ?? 't-shirt'
-        };
-
-        const validationError = validateItemPayload(payload);
-        if (validationError) {
-            return res.status(400).json({error: validationError});
-        }
-
-        const updated = await itemsService.updateItem(req.params.id, payload);
-
+        const updated = await itemsService.updateItem(req.params.id, req.body);
         if (!updated) {
-            return res.status(404).json({error: 'Not found'});
+            return res.status(404).json({error: 'Aucun vêtement trouvé avec cet ID'});
         }
-
-        res.json({message: 'Item mis à jour'});
+        res.status(200).json(req.body);
     } catch (err) {
-        res.status(500).json({error: err.message});
+        res.status(500).json({error: 'Erreur serveur lors de la requête UPDATE.'})
     }
-};
+}
+
+//
+// exports.updateItem = async (req, res) => {
+//     try {
+//         const { cover, on_sale, ...rest } = req.body;
+//         const payload = {
+//             ...rest,
+//             price: Number(req.body.price),
+//             stock: Number(req.body.stock),
+//             comfort: req.body.comfort !== undefined ? Number(req.body.comfort) : null,
+//             onSale: req.body.onSale !== undefined ? Boolean(req.body.onSale) : Boolean(req.body.on_sale),
+//             gender: req.body.gender ?? 'neutre',
+//             category: req.body.category ?? 't-shirt'
+//         };
+//
+//         const validationError = validateItemPayload(payload);
+//         if (validationError) {
+//             return res.status(400).json({error: validationError});
+//         }
+//
+//         const updated = await itemsService.updateItem(req.params.id, payload);
+//
+//         if (!updated) {
+//             return res.status(404).json({error: 'Not found'});
+//         }
+//
+//         res.json({message: 'Item mis à jour'});
+//     } catch (err) {
+//         res.status(500).json({error: err.message});
+//     }
+// };
 
 exports.updateItemStock = async (req, res) => {
     try {

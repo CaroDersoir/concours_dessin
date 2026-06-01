@@ -62,7 +62,7 @@
 .merch-admin__list-item {
     padding: 12px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 12px;
 }
 
@@ -99,11 +99,29 @@
 }
 
 .merch-admin__list-item__name {
-    margin: 0;
+    margin: 0 0 8px;
     font-size: 1.1rem;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+}
+
+.merch-admin__list-item__details {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    opacity: 0.85;
+}
+
+.merch-admin__list-item__details td {
+    padding: 2px 12px 2px 0;
+    white-space: nowrap;
+}
+
+.merch-admin__list-item__details td:nth-child(odd) {
+    color: var(--primary);
+    font-weight: 600;
+    width: 80px;
 }
 
 .merch-admin__list-item__actions {

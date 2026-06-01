@@ -40,8 +40,48 @@
 }
 
 .header__actions {
+    display: grid;
+    grid-template-columns: auto;
+    justify-content: end;
+    gap: 8px;
+}
+
+.header__action__btn {
     display: flex;
-    justify-content: flex-end;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.header__action__group {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+
+.header__action__group .header__pill {
+    flex: 1;
+    text-align: center;
+}
+
+.header__action__icon {
+    width: 0;
+    height: 0;
+    opacity: 0;
+    flex-shrink: 0;
+    /* retour vers texte : icône disparaît immédiatement */
+    transition: width 0.25s ease, height 0.25s ease, opacity 0.25s ease;
+    pointer-events: none;
+}
+
+.header__action__label {
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 120px;
+    opacity: 1;
+    /* retour vers texte : texte apparaît après que l'icône ait disparu */
+    transition: opacity 0.25s ease 0.25s, max-width 0.25s ease 0.25s;
 }
 
 .header__menu {
@@ -125,6 +165,79 @@
     border-color: var(--border);
 }
 
+.header__pill {
+    font-family: 'Orbitron', 'Rajdhani', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--secondary);
+    text-decoration: none;
+    padding: 6px 13px;
+    border-radius: 999px;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    transition: color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    text-shadow: 0 0 6px var(--glow-secondary);
+    white-space: nowrap;
+    line-height: 1;
+}
+
+.header__pill:hover {
+    color: var(--text);
+    border-color: var(--secondary);
+    box-shadow: 0 0 12px var(--glow-secondary);
+}
+
+/* Mode icône quand scrolled */
+.header__scrolled .header__actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 6px;
+}
+
+.header__scrolled .header__action__group {
+    flex-direction: column;
+    width: auto;
+    flex: 0 0 auto;
+    gap: 4px;
+}
+
+.header__scrolled .header__action__btn {
+    width: auto;
+    flex: 0 0 auto;
+}
+
+.header__scrolled .header__action__group .header__pill {
+    flex: 0 0 auto;
+    text-align: center;
+}
+
+.header__scrolled .header__action__label {
+    max-width: 0;
+    opacity: 0;
+    /* passage en icône : texte disparaît immédiatement */
+    transition: opacity 0.25s ease, max-width 0.25s ease;
+}
+
+.header__scrolled .header__action__btn {
+    padding: 10px;
+    border-radius: 50%;
+    justify-content: center;
+    gap: 0;
+}
+
+.header__scrolled .header__action__icon {
+    width: 24px;
+    height: 24px;
+    opacity: 1;
+    pointer-events: auto;
+    /* passage en icône : icône apparaît après que le texte ait disparu */
+    transition: width 0.25s ease 0.25s, height 0.25s ease 0.25s, opacity 0.25s ease 0.25s;
+}
+
 .header__scrolled {
     height: 120px;
     padding: 10px 10px;
@@ -160,6 +273,41 @@
 
 .header__scrolled .header__menu {
     flex: 0 1 auto;
+}
+
+/* === Neon glow derrière les icônes PNG (modes sombres) === */
+.header__scrolled .header__action__btn:first-child .header__action__icon {
+    animation: neon-pulse-primary 2.8s ease-in-out infinite;
+}
+
+.header__scrolled .header__action__btn:last-child .header__action__icon {
+    animation: neon-pulse-secondary 2.8s ease-in-out infinite;
+    animation-delay: 0.7s;
+}
+
+@keyframes neon-pulse-primary {
+    0%, 100% {
+        filter: drop-shadow(0 0 4px var(--primary)) drop-shadow(0 0 10px var(--glow));
+    }
+    50% {
+        filter: drop-shadow(0 0 8px var(--primary)) drop-shadow(0 0 22px var(--glow)) drop-shadow(0 0 38px var(--glow));
+    }
+}
+
+@keyframes neon-pulse-secondary {
+    0%, 100% {
+        filter: drop-shadow(0 0 4px var(--secondary)) drop-shadow(0 0 10px var(--glow-secondary));
+    }
+    50% {
+        filter: drop-shadow(0 0 8px var(--secondary)) drop-shadow(0 0 22px var(--glow-secondary)) drop-shadow(0 0 38px var(--glow-secondary));
+    }
+}
+
+/* Pas de néon en modes clairs */
+.lumiere__mode .header__scrolled .header__action__icon,
+.rose__mode .header__scrolled .header__action__icon {
+    animation: none;
+    filter: none;
 }
 
 @media (max-width: 1000px) {
