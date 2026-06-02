@@ -7,11 +7,11 @@ import {LanguageContext} from '../context/languageContext';
 const EMPTY = '';
 
 const SORT_VALUES = [
-    {value: 'default',      key: 'catalog_sort_default'},
-    {value: 'price_asc',    key: 'catalog_sort_price_asc'},
-    {value: 'price_desc',   key: 'catalog_sort_price_desc'},
-    {value: 'name_asc',     key: 'catalog_sort_name_asc'},
-    {value: 'name_desc',    key: 'catalog_sort_name_desc'},
+    {value: 'default', key: 'catalog_sort_default'},
+    {value: 'price_asc', key: 'catalog_sort_price_asc'},
+    {value: 'price_desc', key: 'catalog_sort_price_desc'},
+    {value: 'name_asc', key: 'catalog_sort_name_asc'},
+    {value: 'name_desc', key: 'catalog_sort_name_desc'},
     {value: 'comfort_desc', key: 'catalog_sort_comfort_desc'},
 ];
 
@@ -19,21 +19,32 @@ function unique(items, key) {
     return [...new Set(items.map(i => i[key]).filter(Boolean))].sort();
 }
 
+function uniqueSizes(items) {
+    return [...new Set(items.flatMap(i => (i.sizes ?? []).map(s => s.size)).filter(Boolean))].sort();
+}
+
 function applySorting(items, sort) {
     const list = [...items];
     switch (sort) {
-        case 'price_asc':    return list.sort((a, b) => (a.price ?? 0) - (b.price ?? 0));
-        case 'price_desc':   return list.sort((a, b) => (b.price ?? 0) - (a.price ?? 0));
-        case 'name_asc':     return list.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
-        case 'name_desc':    return list.sort((a, b) => (b.name || '').localeCompare(a.name || ''));
-        case 'comfort_desc': return list.sort((a, b) => (b.comfort ?? 0) - (a.comfort ?? 0));
-        default:             return list;
+        case 'price_asc':
+            return list.sort((a, b) => (a.price ?? 0) - (b.price ?? 0));
+        case 'price_desc':
+            return list.sort((a, b) => (b.price ?? 0) - (a.price ?? 0));
+        case 'name_asc':
+            return list.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+        case 'name_desc':
+            return list.sort((a, b) => (b.name || '').localeCompare(a.name || ''));
+        case 'comfort_desc':
+            return list.sort((a, b) => (b.comfort ?? 0) - (a.comfort ?? 0));
+        default:
+            return list;
     }
 }
 
 function ItemMerch({cart, updateCart}) {
     const {t} = useContext(LanguageContext);
     const [itemsList, setItemsList] = useState([]);
+    const [itemsError, setItemsError] = useState(false);
     const [search, setSearch] = useState(EMPTY);
     const [filterCategory, setFilterCategory] = useState(EMPTY);
     const [filterGender, setFilterGender] = useState(EMPTY);
@@ -42,8 +53,11 @@ function ItemMerch({cart, updateCart}) {
 
     useEffect(() => {
         getAllItems()
-            .then(setItemsList)
-            .catch(error => console.error('Erreur lors de la récupération des vêtements :', error));
+            .then(data => setItemsList(data || []))
+            .catch(error => {
+                console.error('Erreur lors de la récupération des vêtements :', error);
+                setItemsError(true);
+            });
     }, []);
 
     const addToCart = (item) => {
@@ -62,7 +76,7 @@ function ItemMerch({cart, updateCart}) {
             if (search && !(item.name || '').toLowerCase().includes(search.toLowerCase())) return false;
             if (filterCategory && item.category !== filterCategory) return false;
             if (filterGender && item.gender !== filterGender) return false;
-            if (filterSize && item.size !== filterSize) return false;
+            if (filterSize && !(item.sizes ?? []).some(s => s.size === filterSize)) return false;
             return true;
         }),
         sort
@@ -76,13 +90,17 @@ function ItemMerch({cart, updateCart}) {
         setSort('default');
     }
 
+    if (itemsError) {
+        return (
+            <div className="catalog">
+                <p className="catalog__empty">{t('catalog_error_load')}</p>
+            </div>
+        );
+    }
+
     return (
         <div className="catalog">
             <div className="catalog__header">
-                <div>
-                    <h2 className="catalog__title">Boutique</h2>
-                    <p className="catalog__subtitle">Selection neon du moment</p>
-                </div>
                 <div className="catalog__meta">
                     {hasFilter
                         ? t('catalog_count_filtered', {filtered: filteredItems.length, total: itemsList.length})
@@ -124,7 +142,7 @@ function ItemMerch({cart, updateCart}) {
                     onChange={e => setFilterSize(e.target.value)}
                 >
                     <option value={EMPTY}>{t('catalog_all_sizes')}</option>
-                    {unique(itemsList, 'size').map(v => (
+                    {uniqueSizes(itemsList).map(v => (
                         <option key={v} value={v}>{v}</option>
                     ))}
                 </select>

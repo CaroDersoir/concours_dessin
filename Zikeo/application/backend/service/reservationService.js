@@ -22,7 +22,7 @@ exports.getAll = () => reservationModel.findAll();
 
 exports.getMine = (userId) => reservationModel.findByUser(userId);
 
-exports.create = async (userId, { date, heure_debut, heure_fin, derogation = false }, estProfesseur) => {
+exports.create = async (userId, { date, heure_debut, heure_fin, derogation = false, motif = null }, estProfesseur) => {
     const durationExceeded =
         parseTimeToMinutes(heure_fin) - parseTimeToMinutes(heure_debut) > MAX_DURATION_MINUTES;
 
@@ -49,7 +49,8 @@ exports.create = async (userId, { date, heure_debut, heure_fin, derogation = fal
         heure_fin,
         statut: 'approuvee',
         est_derogation: derogation,
-        statut_derogation: derogation ? 'en_attente' : null
+        statut_derogation: derogation ? 'en_attente' : null,
+        motif
     });
 
     return { reservation: created };
@@ -57,6 +58,10 @@ exports.create = async (userId, { date, heure_debut, heure_fin, derogation = fal
 
 exports.cancel = (id, userId) => reservationModel.deleteByIdAndUser(id, userId);
 
+exports.adminDelete = (id) => reservationModel.deleteById(id);
+
 exports.getPendingDerogations = () => reservationModel.findPendingDerogations();
+
+exports.adminUpdate = (id, data) => reservationModel.updateById(id, data);
 
 exports.updateDerogation = (id, statut) => reservationModel.updateDerogation(id, statut);

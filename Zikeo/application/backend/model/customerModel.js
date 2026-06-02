@@ -14,13 +14,13 @@ exports.create = ({ email, password }) => {
 
 exports.findById = (id) => {
     return Customer.findByPk(id, {
-        attributes: ['id', 'email', 'nom', 'prenom', 'adresse', 'telephone', 'adresse_livraison', 'preferences_paiement', 'role']
+        attributes: ['id', 'email', 'nom', 'prenom', 'adresse', 'telephone', 'adresse_livraison', 'preferences_paiement', 'role', 'can_upload_partition', 'est_professeur']
     }).then(row => row ? row.get({ plain: true }) : null);
 };
 
 exports.findAll = () => {
     return Customer.findAll({
-        attributes: ['id', 'email', 'nom', 'prenom', 'role']
+        attributes: ['id', 'email', 'nom', 'prenom', 'role', 'can_upload_partition', 'est_professeur']
     }).then(rows => rows.map(r => r.get({ plain: true })));
 };
 

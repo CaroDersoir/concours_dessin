@@ -21,17 +21,17 @@ exports.getLessons = async (req, res) => {
         const lessons = await lessonService.getAllLessons();
         res.json(lessons);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(500).json({error: err.message});
     }
 };
 
 exports.getLessonById = async (req, res) => {
     try {
         const lesson = await lessonService.getLessonById(req.params.id);
-        if (!lesson) return res.status(404).json({ error: 'Not found' });
+        if (!lesson) return res.status(404).json({error: 'Not found'});
         res.json(lesson);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(500).json({error: err.message});
     }
 };
 
@@ -46,35 +46,36 @@ exports.createLesson = async (req, res) => {
             available: req.body.available !== undefined ? Boolean(req.body.available) : true,
             teacher_id: req.body.teacher_id ? Number(req.body.teacher_id) : null,
             salle: req.body.salle || 'local',
-            spots: req.body.spots !== undefined ? Number(req.body.spots) : 0
+            spots: req.body.spots !== undefined ? Number(req.body.spots) : 0,
+            duration_minutes: req.body.duration_minutes ? Number(req.body.duration_minutes) : null
         };
 
         const error = validateLessonPayload(payload);
-        if (error) return res.status(400).json({ error });
+        if (error) return res.status(400).json({error});
 
         const created = await lessonService.createLesson(payload);
         res.status(201).json(created);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(500).json({error: err.message});
     }
 };
 
 exports.updateLesson = async (req, res) => {
     try {
         const updated = await lessonService.updateLesson(req.params.id, req.body);
-        if (!updated) return res.status(404).json({ error: 'Not found' });
+        if (!updated) return res.status(404).json({error: 'Not found'});
         res.status(200).json(req.body);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(500).json({error: err.message});
     }
 };
 
 exports.deleteLesson = async (req, res) => {
     try {
         const deleted = await lessonService.deleteLesson(req.params.id);
-        if (!deleted) return res.status(404).json({ error: 'Not found' });
+        if (!deleted) return res.status(404).json({error: 'Not found'});
         res.status(204).send();
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(500).json({error: err.message});
     }
 };

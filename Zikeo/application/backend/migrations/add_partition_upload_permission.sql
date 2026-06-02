@@ -1,0 +1,1 @@
+ALTER TABLE customer ADD COLUMN can_upload_partition BOOLEAN NOT NULL DEFAULT TRUE;

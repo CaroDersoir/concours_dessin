@@ -1,12 +1,12 @@
-import {useState, createContext, useEffect} from 'react';
+import {createContext, useEffect, useState} from 'react';
 
 export const CURRENCIES = [
-    {code: 'EUR', symbol: '€',  label: 'Euro'},
-    {code: 'USD', symbol: '$',  label: 'Dollar américain'},
-    {code: 'GBP', symbol: '£',  label: 'Livre sterling'},
-    {code: 'CHF', symbol: 'Fr.', label: 'Franc suisse'},
-    {code: 'JPY', symbol: '¥',  label: 'Yen japonais'},
-    {code: 'BRL', symbol: 'R$', label: 'Real brésilien'},
+    {code: 'EUR', symbol: '€', label: 'Euro', rate: 1},
+    {code: 'USD', symbol: '$', label: 'Dollar américain', rate: 1.08},
+    {code: 'GBP', symbol: '£', label: 'Livre sterling', rate: 0.86},
+    {code: 'CHF', symbol: 'Fr.', label: 'Franc suisse', rate: 0.97},
+    {code: 'JPY', symbol: '¥', label: 'Yen japonais', rate: 164},
+    {code: 'BRL', symbol: 'R$', label: 'Real brésilien', rate: 5.40},
 ];
 
 export const CurrencyContext = createContext();
@@ -21,8 +21,10 @@ export const CurrencyProvider = ({children}) => {
         localStorage.setItem('currency', currency.code);
     }, [currency]);
 
+    const convert = (priceEur) => (Number(priceEur) * currency.rate).toFixed(2);
+
     return (
-        <CurrencyContext.Provider value={{currency, setCurrency, currencies: CURRENCIES}}>
+        <CurrencyContext.Provider value={{currency, setCurrency, currencies: CURRENCIES, convert}}>
             {children}
         </CurrencyContext.Provider>
     );

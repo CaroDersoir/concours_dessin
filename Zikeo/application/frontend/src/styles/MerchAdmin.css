@@ -28,8 +28,24 @@
     gap: 12px;
 }
 
+.merch-admin__filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+}
+
 .merch-admin__search {
-    max-width: 500px;
+    flex: 1 1 160px;
+    min-width: 140px;
+    max-width: 260px;
+}
+
+.merch-admin__filter-select {
+    flex: 1 1 140px;
+    min-width: 130px;
+    max-width: 200px;
+    cursor: pointer;
 }
 
 .merch-admin__textarea {
@@ -67,12 +83,39 @@
 }
 
 .merch-admin__list-item__media {
+    position: relative;
     width: 72px;
     height: 72px;
     border-radius: 10px;
     overflow: hidden;
     border: 1px solid var(--border);
     background: rgba(255, 255, 255, 0.04);
+}
+
+.merch-admin__list-item__promo-badge {
+    position: absolute;
+    bottom: 4px;
+    left: 0;
+    right: 0;
+    background: var(--secondary, #e040fb);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-align: center;
+    padding: 2px 0;
+    letter-spacing: 0.03em;
+}
+
+.merch-admin__list-item__promo-banner {
+    display: inline-block;
+    margin-bottom: 6px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: rgba(224, 64, 251, 0.15);
+    border: 1px solid var(--secondary, #e040fb);
+    color: var(--secondary, #e040fb);
+    font-size: 0.78rem;
+    font-weight: 600;
 }
 
 .merch-admin__list-item__media img {
@@ -164,30 +207,286 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 40;
+    z-index: 400;
     padding: 20px;
 }
 
 .merch-admin__modal__content {
+    display: flex;
+    flex-direction: column;
     width: min(920px, 100%);
     max-height: 90vh;
-    overflow: auto;
+    overflow: hidden;
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 18px;
     box-shadow: 0 24px 38px rgba(0, 0, 0, 0.45);
 }
 
 .merch-admin__modal__header {
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 12px;
-    margin-bottom: 16px;
+    padding: 18px 18px 12px;
+    border-bottom: 1px solid var(--border);
+}
+
+.merch-admin__modal__body {
+    overflow-y: auto;
+    flex: 1 1 0;
+    min-height: 0;
+    padding: 16px 18px 18px;
 }
 
 .merch-admin__modal__actions {
     display: flex;
     justify-content: flex-end;
+    grid-column: 1 / -1;
 }
+
+.merch-admin__tabs {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 12px;
+}
+
+.merch-admin__item-promo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.merch-admin__item-promo__info {
+    flex: 1;
+}
+
+.merch-admin__item-promo__name {
+    font-weight: 700;
+    margin: 0 0 4px;
+}
+
+.merch-admin__item-promo__details {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin: 0;
+}
+
+.merch-admin__item-promo__actions {
+    display: flex;
+    gap: 8px;
+}
+
+.promo-modal__input-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.promo-modal__date-label {
+    display: grid;
+    gap: 2px;
+    font-size: 0.82rem;
+}
+
+.promo-modal__date-label input[type="date"] {
+    background: transparent;
+    border: none;
+    color: var(--text);
+}
+
+.promo-modal__code-input {
+    text-transform: uppercase;
+}
+
+.lesson-admin__enrollments-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 8px;
+}
+
+.lesson-admin__enrollment-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 0.9rem;
+}
+
+.lesson-admin__enrollment-icon {
+    font-size: 1.1rem;
+    color: var(--primary);
+    flex-shrink: 0;
+}
+
+.lesson-admin__enrollment-email {
+    margin-left: auto;
+    opacity: 0.6;
+    font-size: 0.82rem;
+}
+
+.lesson-edit__sessions {
+    margin-top: 20px;
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+    display: grid;
+    gap: 12px;
+}
+
+.lesson-edit__sessions-title {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--primary);
+}
+
+.lesson-edit__sessions-empty {
+    margin: 0;
+    opacity: 0.7;
+    font-size: 0.9rem;
+}
+
+/* ItemEdit — gestion des tailles */
+.item-edit__sizes {
+    grid-column: 1 / -1;
+    display: grid;
+    gap: 8px;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.item-edit__sizes__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.item-edit__sizes__label {
+    font-size: 0.78rem;
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--text) 55%, transparent);
+}
+
+.item-edit__sizes__empty {
+    margin: 0;
+    font-size: 0.85rem;
+    opacity: 0.6;
+}
+
+.item-edit__size__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 8px;
+    align-items: center;
+}
+
+.btn--sm {
+    padding: 4px 10px;
+    font-size: 0.82rem;
+}
+
+/* ItemEdit — gestion des images */
+.item-edit__covers {
+    grid-column: 1 / -1;
+    display: grid;
+    gap: 10px;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.item-edit__covers__grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.item-edit__cover__thumb {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+}
+
+.item-edit__cover__thumb--new {
+    border-color: var(--primary);
+    box-shadow: 0 0 8px var(--glow);
+}
+
+.item-edit__cover__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.item-edit__cover__delete {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    font-size: 0.65rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.lesson-edit__sessions-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 8px;
+}
+
+.lesson-edit__session-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    gap: 12px;
+}
+
+.lesson-edit__session-delete {
+    font-size: 0.8rem;
+    padding: 4px 10px;
+}
+
+.lesson-edit__session-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: flex-end;
+}
+
+.lesson-edit__session-form .input {
+    flex: 1 1 130px;
+    min-width: 110px;
+}
+

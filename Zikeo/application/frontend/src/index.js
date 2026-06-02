@@ -17,10 +17,19 @@ import {LanguageProvider} from './context/languageContext';
 import {CurrencyProvider} from './context/currencyContext';
 import {BrowserRouter as Router, Route, Switch, useLocation} from 'react-router-dom';
 import PageWrapper from './pages/PageWrapper';
+import PageErrorBoundary from './components/PageErrorBoundary';
+import ProgressBar from './components/ProgressBar';
+import {LoadingProvider} from './context/loadingContext';
 import Profile from "./pages/Profile";
 import EmailVerificationPage from "./pages/EmailVerificationPage";
 import AdminUsers from "./pages/AdminUsers";
+import AdminNotifications from "./pages/AdminNotifications";
+import AdminCommandes from "./pages/AdminCommandes";
 import Promotions from "./pages/Promotions";
+import Litiges from "./pages/Litiges";
+import FormationsAdmin from "./pages/FormationsAdmin";
+import HomeAdmin from "./pages/HomeAdmin";
+import Checkout from "./pages/Checkout";
 
 function ScrollToTop() {
     const {pathname} = useLocation();
@@ -30,16 +39,28 @@ function ScrollToTop() {
     return null;
 }
 
+// Remet l'ErrorBoundary à zéro à chaque changement de route pour isoler les crashs par page
+function SafeSwitch({children}) {
+    const {pathname} = useLocation();
+    return (
+        <PageErrorBoundary key={pathname}>
+            <Switch>{children}</Switch>
+        </PageErrorBoundary>
+    );
+}
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
         <Router>
+            <LoadingProvider>
             <LanguageProvider>
                 <CurrencyProvider>
                     <OptionProvider>
                         <ScrollToTop/>
+                        <ProgressBar/>
                         <PageWrapper>
-                            <Switch>
+                            <SafeSwitch>
                                 <Route exact path="/">
                                     <Home/>
                                 </Route>
@@ -82,14 +103,33 @@ root.render(
                                 <Route path="/promotions">
                                     <Promotions/>
                                 </Route>
+                                <Route path="/litiges">
+                                    <Litiges/>
+                                </Route>
+                                <Route path="/gestion-formations">
+                                    <FormationsAdmin/>
+                                </Route>
+                                <Route path="/admin/home">
+                                    <HomeAdmin/>
+                                </Route>
+                                <Route path="/admin/notifications">
+                                    <AdminNotifications/>
+                                </Route>
+                                <Route path="/admin/commandes">
+                                    <AdminCommandes/>
+                                </Route>
+                                <Route path="/checkout">
+                                    <Checkout/>
+                                </Route>
                                 <Route path="*">
                                     <Error/>
                                 </Route>
-                            </Switch>
+                            </SafeSwitch>
                         </PageWrapper>
                     </OptionProvider>
                 </CurrencyProvider>
             </LanguageProvider>
+            </LoadingProvider>
         </Router>
     </React.StrictMode>
 );

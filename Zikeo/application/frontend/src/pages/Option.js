@@ -8,19 +8,19 @@ import '../styles/Option.css';
 import {OptionContext} from "../context/indexContext";
 
 const themes = [
-    {id: 'ocean', label: 'Zikéolarge', hashtag: '#SouslOcean'},
-    {id: 'maya', label: 'Zikéo', hashtag: '#MayalAbeille'},
-    {id: 'eolienne', label: 'Zikéolienne', hashtag: '#EnRotationDansLeVent'},
-    {id: 'oblique', label: 'Zikéoblique', hashtag: '#PencheDansLeSpectre'},
-    {id: 'nuit', label: 'Zikéolit', hashtag: '#SousLaLune'},
-    {id: 'automne', label: 'Zikéotomne', hashtag: '#FeuillesMortesEtMusique'},
-    {id: 'rose', label: 'ZikéauDeRose', hashtag: '#LaVieEnRose'},
-    {id: 'lumiere', label: 'Zikéolumière', hashtag: '#SousLesProjecteurs'},
+    {id: 'ocean',     labelKey: 'option_theme_ocean_label',    tagKey: 'option_theme_ocean_tag'},
+    {id: 'maya',      labelKey: 'option_theme_maya_label',     tagKey: 'option_theme_maya_tag'},
+    {id: 'eolienne',  labelKey: 'option_theme_eolienne_label', tagKey: 'option_theme_eolienne_tag'},
+    {id: 'oblique',   labelKey: 'option_theme_oblique_label',  tagKey: 'option_theme_oblique_tag'},
+    {id: 'nuit',      labelKey: 'option_theme_nuit_label',     tagKey: 'option_theme_nuit_tag'},
+    {id: 'automne',   labelKey: 'option_theme_automne_label',  tagKey: 'option_theme_automne_tag'},
+    {id: 'rose',      labelKey: 'option_theme_rose_label',     tagKey: 'option_theme_rose_tag'},
+    {id: 'lumiere',   labelKey: 'option_theme_lumiere_label',  tagKey: 'option_theme_lumiere_tag'},
 ];
 
 function Option() {
     const {mode, setMode} = useContext(OptionContext);
-    const {lang, setLang} = useContext(LanguageContext);
+    const {lang, setLang, t} = useContext(LanguageContext);
     const {currency, setCurrency, currencies} = useContext(CurrencyContext);
     const location = useLocation();
     const history = useHistory();
@@ -32,26 +32,26 @@ function Option() {
             <Header/>
 
             <main className="page__content">
-                <h1 className="page__title">Option</h1>
+                <h1 className="page__title">{t('option_title')}</h1>
 
                 <div className="option__tabs">
                     <button
                         className={`option__tab ${tab === 'theme' ? 'option__tab--active' : ''}`}
                         onClick={() => setTab('theme')}
                     >
-                        Thème
+                        {t('option_tab_theme')}
                     </button>
                     <button
                         className={`option__tab ${tab === 'langue' ? 'option__tab--active' : ''}`}
                         onClick={() => setTab('langue')}
                     >
-                        Langue
+                        {t('option_tab_langue')}
                     </button>
                     <button
                         className={`option__tab ${tab === 'devise' ? 'option__tab--active' : ''}`}
                         onClick={() => setTab('devise')}
                     >
-                        Devise
+                        {t('option_tab_devise')}
                     </button>
                 </div>
 
@@ -66,8 +66,8 @@ function Option() {
                                     checked={mode === theme.id}
                                     onChange={() => setMode(theme.id)}
                                 />
-                                <span>{theme.label}</span>
-                                <span className="option__badge">{theme.hashtag}</span>
+                                <span>{t(theme.labelKey)}</span>
+                                <span className="option__badge">{t(theme.tagKey)}</span>
                             </label>
                         ))}
                     </div>

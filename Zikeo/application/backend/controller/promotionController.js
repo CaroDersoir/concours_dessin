@@ -1,11 +1,11 @@
-/** communique avec le frontend pour les promotions **/
-
 const promotionService = require('../service/promotionService');
 
 function validatePromotionPayload(payload) {
     if (!payload || typeof payload !== 'object') return 'Payload invalide';
     if (!payload.name || typeof payload.name !== 'string') return 'Le nom est obligatoire';
-    if (!payload.code || typeof payload.code !== 'string') return 'Le code est obligatoire';
+    // code is required only for code-type promotions
+    const isCodeType = payload.type === 'code';
+    if (isCodeType && (!payload.code || typeof payload.code !== 'string')) return 'Le code est obligatoire pour les promotions de type code';
     if (payload.discount_percent === undefined || Number.isNaN(Number(payload.discount_percent))) {
         return 'La réduction est obligatoire et doit être numérique';
     }

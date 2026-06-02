@@ -333,3 +333,16 @@ code {
     border-color: var(--primary);
     box-shadow: 0 0 0 1px var(--primary), 0 0 12px var(--glow);
 }
+
+/* === Barre de progression de navigation === */
+.progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: var(--primary);
+    box-shadow: 0 0 10px var(--glow), 0 0 4px var(--primary);
+    z-index: 9999;
+    transition: width 0.35s ease, opacity 0.3s ease;
+    pointer-events: none;
+}

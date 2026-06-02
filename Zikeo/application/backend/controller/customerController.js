@@ -1,5 +1,3 @@
-/** communique avec le frontend **/
-
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const https = require('https');
@@ -151,6 +149,17 @@ const requireAdmin = async (req, res, next) => {
 };
 exports.requireAdmin = requireAdmin;
 
+const requireAuth = (req, res, next) => {
+    try {
+        const {userId} = verifyToken(req);
+        req.userId = userId;
+        next();
+    } catch (err) {
+        res.status(401).json({error: err.message});
+    }
+};
+exports.requireAuth = requireAuth;
+
 exports.getAllUsers = async (req, res) => {
     try {
         const users = await customerService.getAllUsers();
@@ -180,6 +189,39 @@ exports.updateRole = async (req, res) => {
         res.json({message: 'Rôle mis à jour.'});
     } catch (err) {
         res.status(500).json({error: err.message});
+    }
+};
+
+exports.updatePartitionAccess = async (req, res) => {
+    try {
+        const id = parseInt(req.params.id, 10);
+        const {can_upload_partition} = req.body;
+        await customerService.updateUser(id, {can_upload_partition});
+        res.json({message: 'Accès partitions mis à jour.'});
+    } catch (err) {
+        res.status(500).json({error: err.message});
+    }
+};
+
+exports.updateTeacher = async (req, res) => {
+    try {
+        const id = parseInt(req.params.id, 10);
+        const {est_professeur} = req.body;
+        await customerService.updateUser(id, {est_professeur});
+        res.json({message: 'Statut professeur mis à jour.'});
+    } catch (err) {
+        res.status(500).json({error: err.message});
+    }
+};
+
+exports.deleteOwnAccount = async (req, res) => {
+    try {
+        const {userId} = verifyToken(req);
+        const deleted = await customerService.deleteUser(userId);
+        if (!deleted) return res.status(404).json({error: 'Utilisateur introuvable.'});
+        res.json({message: 'Compte supprimé.'});
+    } catch (err) {
+        res.status(401).json({error: err.message});
     }
 };
 

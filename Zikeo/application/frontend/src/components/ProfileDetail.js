@@ -1,10 +1,12 @@
 // Composant formulaire de profil utilisateur connecté
 import '../styles/ProfileDetail.css';
-import {useEffect, useState} from 'react';
+import {useEffect, useState, useContext} from 'react';
 import {useHistory} from 'react-router-dom';
-import {getProfile, updateProfile} from '../service/customerServiceFront';
+import {getProfile, updateProfile, deleteMyAccount} from '../service/customerServiceFront';
+import {LanguageContext} from '../context/languageContext';
 
 function ProfileDetail() {
+    const {t} = useContext(LanguageContext);
     const history = useHistory();
     const token = localStorage.getItem('token');
 
@@ -16,6 +18,7 @@ function ProfileDetail() {
     });
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [confirmDelete, setConfirmDelete] = useState(false);
 
     useEffect(() => {
         if (!token) {
@@ -33,11 +36,23 @@ function ProfileDetail() {
                 adresse_livraison: data.adresse_livraison || '',
                 preferences_paiement: data.preferences_paiement || ''
             })))
-            .catch(() => setErrorMessage('Erreur lors du chargement du profil.'));
+            .catch(() => setErrorMessage(t('profile_error_load')));
     }, [token, history]);
 
     const handleChange = (e) => {
         setForm({...form, [e.target.name]: e.target.value});
+    };
+
+    const handleDeleteAccount = async () => {
+        try {
+            await deleteMyAccount();
+            localStorage.removeItem('token');
+            localStorage.removeItem('userId');
+            localStorage.removeItem('isAdmin');
+            history.push('/login');
+        } catch {
+            setErrorMessage(t('profile_error_delete'));
+        }
     };
 
     const handleSave = async (e) => {
@@ -50,23 +65,17 @@ function ProfileDetail() {
 
         try {
             await updateProfile(body);
-            setSuccessMessage('Profil mis à jour avec succès.');
+            setSuccessMessage(t('profile_success_save'));
         } catch (error) {
-            setErrorMessage(error.response?.data?.error || 'Erreur lors de la mise à jour.');
+            setErrorMessage(error.response?.data?.error || t('profile_error_save'));
         }
-    };
-
-    const handleLogout = () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('userId');
-        history.push('/login');
     };
 
     return (
         <div className="profile">
             <div className="profile__card">
                 <div className="profile__header">
-                    <h2 className="profile__title">Mon Profil</h2>
+                    <h2 className="profile__title">{t('profile_title_card')}</h2>
                 </div>
 
                 {successMessage && <p className="profile__success">{successMessage}</p>}
@@ -75,29 +84,29 @@ function ProfileDetail() {
                 <form className="profile__form" onSubmit={handleSave}>
                     <div className="profile__row">
                         <div className="profile__field">
-                            <label className="profile__label">Prénom</label>
+                            <label className="profile__label">{t('profile_label_prenom')}</label>
                             <input
                                 className="profile__input"
                                 name="prenom"
                                 value={form.prenom}
                                 onChange={handleChange}
-                                placeholder="Prénom"
+                                placeholder={t('profile_label_prenom')}
                             />
                         </div>
                         <div className="profile__field">
-                            <label className="profile__label">Nom</label>
+                            <label className="profile__label">{t('profile_label_nom')}</label>
                             <input
                                 className="profile__input"
                                 name="nom"
                                 value={form.nom}
                                 onChange={handleChange}
-                                placeholder="Nom"
+                                placeholder={t('profile_label_nom')}
                             />
                         </div>
                     </div>
 
                     <div className="profile__field">
-                        <label className="profile__label">Email *</label>
+                        <label className="profile__label">{t('profile_label_email')}</label>
                         <input
                             className="profile__input"
                             type="email"
@@ -110,69 +119,88 @@ function ProfileDetail() {
                     </div>
 
                     <div className="profile__field">
-                        <label className="profile__label">Nouveau mot de passe</label>
+                        <label className="profile__label">{t('profile_label_password')}</label>
                         <input
                             className="profile__input"
                             type="password"
                             name="password"
                             value={form.password}
                             onChange={handleChange}
-                            placeholder="Laisser vide pour ne pas changer"
+                            placeholder={t('profile_placeholder_password')}
                         />
                     </div>
 
                     <div className="profile__field">
-                        <label className="profile__label">Téléphone</label>
+                        <label className="profile__label">{t('profile_label_telephone')}</label>
                         <input
                             className="profile__input"
                             name="telephone"
                             value={form.telephone}
                             onChange={handleChange}
-                            placeholder="Numéro de téléphone"
+                            placeholder={t('profile_placeholder_telephone')}
                         />
                     </div>
 
                     <div className="profile__field">
-                        <label className="profile__label">Adresse</label>
+                        <label className="profile__label">{t('profile_label_adresse')}</label>
                         <input
                             className="profile__input"
                             name="adresse"
                             value={form.adresse}
                             onChange={handleChange}
-                            placeholder="Adresse"
+                            placeholder={t('profile_label_adresse')}
                         />
                     </div>
 
                     <div className="profile__field">
-                        <label className="profile__label">Adresse de livraison</label>
+                        <label className="profile__label">{t('profile_label_adresse_livraison')}</label>
                         <input
                             className="profile__input"
                             name="adresse_livraison"
                             value={form.adresse_livraison}
                             onChange={handleChange}
-                            placeholder="Adresse de livraison (si différente)"
+                            placeholder={t('profile_placeholder_adresse_livraison')}
                         />
                     </div>
 
                     <div className="profile__field">
-                        <label className="profile__label">Préférences de paiement</label>
+                        <label className="profile__label">{t('profile_label_paiement')}</label>
                         <select
                             className="profile__input profile__select"
                             name="preferences_paiement"
                             value={form.preferences_paiement}
                             onChange={handleChange}
                         >
-                            <option value="">-- Choisir --</option>
-                            <option value="carte">Carte bancaire</option>
-                            <option value="paypal">PayPal</option>
-                            <option value="virement">Virement bancaire</option>
+                            <option value="">{t('profile_paiement_choose')}</option>
+                            <option value="carte">{t('profile_paiement_carte')}</option>
+                            <option value="paypal">{t('profile_paiement_paypal')}</option>
+                            <option value="virement">{t('profile_paiement_virement')}</option>
                         </select>
                     </div>
 
-                    <button className="profile__submit" type="submit">Enregistrer</button>
+                    <button className="profile__submit" type="submit">{t('item_edit_btn_save')}</button>
                 </form>
 
-                <button className="profile__logout" onClick={handleLogout}>Déconnexion</button>
+                <div className="profile__danger">
+                    {!confirmDelete ? (
+                        <button className="profile__delete-btn" onClick={() => setConfirmDelete(true)}>
+                            {t('profile_delete_account')}
+                        </button>
+                    ) : (
+                        <div className="profile__delete-confirm">
+                            <p className="profile__delete-warning">{t('profile_delete_confirm')}</p>
+                            <div className="profile__delete-actions">
+                                <button className="profile__delete-btn" onClick={handleDeleteAccount}>
+                                    {t('profile_delete_confirm_yes')}
+                                </button>
+                                <button className="profile__submit" onClick={() => setConfirmDelete(false)}>
+                                    {t('profile_delete_confirm_no')}
+                                </button>
+                            </div>
+                        </div>
+                    )}
+                </div>
+
             </div>
         </div>
     );

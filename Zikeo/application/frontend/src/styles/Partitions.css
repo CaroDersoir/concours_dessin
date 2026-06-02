@@ -1,6 +1,129 @@
-.partition__grid {
+/* HEADER */
+
+.partitions__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+/* TOOLBAR : barre de recherche + bulles */
+
+.partitions__toolbar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.partitions__search {
+    flex: 1;
+    min-width: 180px;
+    padding: 8px 14px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--card);
+    color: var(--text);
+    font-size: 14px;
+}
+
+.partitions__search:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.partitions__filter {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.partitions__filter__bubble {
+    padding: 8px 18px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+    cursor: pointer;
+    font-size: 13px;
+    transition: 0.2s ease;
+}
+
+.partitions__filter__bubble:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.partitions__filter__bubble--active {
+    background: var(--primary);
+    color: var(--bg);
+    border-color: var(--primary);
+}
+
+/* BODY : vue normale ou vue split (index + mini cartes) */
+
+.partitions__body {
     margin-top: 24px;
 }
+
+.partitions__body--split {
+    display: flex;
+    gap: 28px;
+    align-items: flex-start;
+}
+
+/* INDEX latéral (liste de liens auteurs / instruments) */
+
+.partitions__index {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 150px;
+    flex-shrink: 0;
+    padding-top: 4px;
+}
+
+.partitions__index__link {
+    text-align: left;
+    background: none;
+    border: none;
+    color: var(--text);
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: var(--radius);
+    font-size: 14px;
+    transition: 0.15s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.partitions__index__link:hover {
+    color: var(--primary);
+    background: var(--card);
+}
+
+.partitions__index__link--active {
+    color: var(--primary);
+    font-weight: 600;
+    background: var(--card);
+}
+
+/* GRILLE */
+
+.partition__grid {
+    flex: 1;
+    /* auto-fill + max fixe : évite que les cartes s'étirent quand peu de résultats */
+    grid-template-columns: repeat(auto-fill, minmax(160px, 200px));
+}
+
+.partition__grid--mini {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 120px));
+    gap: 12px;
+}
+
+/* CARTES */
 
 .partition__card__tile {
     padding: 18px;
@@ -10,6 +133,7 @@
     place-items: center;
     text-align: center;
     aspect-ratio: 1 / 1;
+    position: relative;
 }
 
 .partition__card__tile:hover {
@@ -29,7 +153,52 @@
     color: var(--primary);
 }
 
-/* MODAL POPUP */
+/* Mini cartes */
+
+.partition__card__tile--mini {
+    padding: 10px 6px;
+}
+
+.partition__card__tile--mini img {
+    width: 36px;
+    height: 36px;
+}
+
+.partition__card__tile--mini p {
+    margin: 6px 0 0;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.partition__card__sub {
+    font-size: 10px;
+    color: var(--text-muted, #888);
+    margin-top: 3px;
+    font-weight: 400;
+}
+
+/* Bouton suppression */
+
+.partition__card__delete {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background: none;
+    border: none;
+    color: var(--primary);
+    font-size: 16px;
+    cursor: pointer;
+    opacity: 0.5;
+    line-height: 1;
+    padding: 2px 5px;
+    z-index: 1;
+}
+
+.partition__card__delete:hover {
+    opacity: 1;
+}
+
+/* MODAL PDF */
 
 .partition__modal {
     position: fixed;
@@ -54,4 +223,37 @@
     height: 500px;
     border: none;
     margin-top: 15px;
+}
+
+.partition__modal__meta {
+    color: var(--text-muted, #888);
+    font-size: 14px;
+    margin: 4px 0 0;
+}
+
+/* FORMULAIRE D'UPLOAD */
+
+.partition__upload__form input[type="text"],
+.partition__upload__form input[type="file"] {
+    display: block;
+    width: 100%;
+    margin-top: 12px;
+    padding: 8px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg);
+    color: var(--text);
+    box-sizing: border-box;
+}
+
+.partition__upload__buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.partition__upload__error {
+    color: red;
+    margin-top: 8px;
+    font-size: 14px;
 }

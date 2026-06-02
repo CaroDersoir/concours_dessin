@@ -1,0 +1,385 @@
+.litige {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 48px 24px;
+    gap: 32px;
+}
+
+.litige__card {
+    width: 100%;
+    max-width: 640px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 36px 32px;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.5),
+                0 0 60px var(--glow-secondary);
+}
+
+.litige__title {
+    margin: 0 0 24px;
+    font-family: 'Orbitron', 'Rajdhani', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--primary);
+    text-shadow: 0 0 14px var(--glow);
+}
+
+.litige__form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.litige__field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.litige__label {
+    font-size: 0.78rem;
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--text) 55%, transparent);
+}
+
+.litige__input,
+.litige__select,
+.litige__textarea {
+    width: 100%;
+    padding: 11px 14px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--bg-soft);
+    color: var(--text);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box;
+    appearance: none;
+}
+
+.litige__input:focus,
+.litige__select:focus,
+.litige__textarea:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 1px var(--primary), 0 0 12px var(--glow);
+}
+
+.litige__input::placeholder,
+.litige__textarea::placeholder {
+    color: color-mix(in srgb, var(--text) 30%, transparent);
+}
+
+.litige__select {
+    cursor: pointer;
+}
+
+.litige__select option {
+    background: var(--bg-soft);
+    color: var(--text);
+}
+
+.litige__textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.litige__submit {
+    margin-top: 8px;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: var(--primary);
+    color: var(--bg);
+    font-family: 'Orbitron', 'Rajdhani', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 0 14px var(--glow);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.litige__submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 24px var(--glow);
+}
+
+.litige__submit:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.litige__success {
+    text-align: center;
+    color: #00f0a0;
+    font-size: 0.88rem;
+    margin: 0 0 12px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: rgba(0, 240, 160, 0.08);
+    border: 1px solid rgba(0, 240, 160, 0.25);
+}
+
+.litige__error {
+    text-align: center;
+    color: #ff4d6d;
+    font-size: 0.88rem;
+    margin: 0 0 12px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: rgba(255, 77, 109, 0.1);
+    border: 1px solid rgba(255, 77, 109, 0.3);
+}
+
+.litige__history {
+    width: 100%;
+    max-width: 640px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.litige__history__title {
+    font-family: 'Orbitron', 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--primary);
+    text-shadow: 0 0 10px var(--glow);
+    margin: 0 0 4px;
+}
+
+.litige__empty {
+    color: color-mix(in srgb, var(--text) 50%, transparent);
+    font-size: 0.9rem;
+    font-family: 'Rajdhani', sans-serif;
+    text-align: center;
+    padding: 16px 0;
+}
+
+.litige__item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.litige__item__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.litige__item__type {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text);
+}
+
+.litige__item__ref {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.85rem;
+    color: color-mix(in srgb, var(--text) 55%, transparent);
+}
+
+.litige__item__desc {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.95rem;
+    color: var(--text);
+    line-height: 1.5;
+}
+
+.litige__item__date {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.8rem;
+    color: color-mix(in srgb, var(--text) 40%, transparent);
+}
+
+.litige__badge {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-weight: 700;
+}
+
+.litige__badge--ouvert {
+    background: rgba(100, 180, 255, 0.12);
+    color: #64b4ff;
+    border: 1px solid rgba(100, 180, 255, 0.3);
+}
+
+.litige__badge--en_cours {
+    background: rgba(255, 200, 50, 0.1);
+    color: #ffc832;
+    border: 1px solid rgba(255, 200, 50, 0.3);
+}
+
+.litige__badge--resolu {
+    background: rgba(0, 240, 160, 0.08);
+    color: #00f0a0;
+    border: 1px solid rgba(0, 240, 160, 0.25);
+}
+
+.litige__badge--rejete {
+    background: rgba(255, 77, 109, 0.1);
+    color: #ff4d6d;
+    border: 1px solid rgba(255, 77, 109, 0.3);
+}
+
+/* ===== Section admin ===== */
+
+.litige__admin {
+    width: 100%;
+    max-width: 640px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.litige__item--clickable {
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.litige__item--clickable:hover {
+    border-color: var(--primary);
+    box-shadow: 0 0 12px var(--glow);
+}
+
+/* ===== Modale litige ===== */
+
+.litige__modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.litige__modal {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    width: 100%;
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4), 0 0 40px var(--glow-secondary);
+}
+
+.litige__modal-title {
+    margin: 0;
+    font-family: 'Orbitron', 'Rajdhani', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--primary);
+    text-shadow: 0 0 10px var(--glow);
+}
+
+.litige__modal-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+.litige__modal-row {
+    display: flex;
+    gap: 0.6rem;
+    align-items: baseline;
+    font-size: 0.92rem;
+    color: var(--text);
+}
+
+.litige__modal-row--desc {
+    align-items: flex-start;
+}
+
+.litige__modal-label {
+    flex-shrink: 0;
+    min-width: 100px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--text) 55%, transparent);
+}
+
+.litige__modal-select {
+    padding: 0.35rem 0.6rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--bg-soft);
+    color: var(--text);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.litige__modal-select:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 0 1px var(--primary);
+}
+
+.litige__modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.8rem;
+}
+
+.litige__modal-btn {
+    padding: 0.5rem 1.1rem;
+    border-radius: 8px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s;
+}
+
+.litige__modal-btn--primary {
+    background: var(--primary);
+    color: var(--bg);
+    border: none;
+    box-shadow: 0 0 10px var(--glow);
+}
+
+.litige__modal-btn--primary:hover {
+    box-shadow: 0 0 20px var(--glow);
+}
+
+.litige__modal-btn--secondary {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+
+.litige__modal-btn--secondary:hover {
+    background: var(--bg-soft);
+}

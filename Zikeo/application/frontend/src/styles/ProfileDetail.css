@@ -1,7 +1,75 @@
+.profile__hub {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 48px 24px;
+    gap: 32px;
+}
+
+.profile__bubbles {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.profile__bubble {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: 180px;
+    padding: 28px 20px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+}
+
+.profile__bubble:hover {
+    border-color: var(--primary);
+    box-shadow: 0 0 24px var(--glow);
+    transform: translateY(-3px);
+}
+
+.profile__bubble--active {
+    border-color: var(--primary);
+    box-shadow: 0 0 32px var(--glow);
+}
+
+.profile__bubble__icon {
+    font-size: 2rem;
+}
+
+.profile__bubble__label {
+    font-family: 'Orbitron', 'Rajdhani', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text);
+    text-align: center;
+}
+
+.profile__bubble--active .profile__bubble__label {
+    color: var(--primary);
+    text-shadow: 0 0 8px var(--glow);
+}
+
+.profile__empty {
+    text-align: center;
+    color: color-mix(in srgb, var(--text) 50%, transparent);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    padding: 16px 0;
+}
+
 .profile {
     display: flex;
     justify-content: center;
-    padding: 48px 24px;
+    width: 100%;
 }
 
 .profile__card {
@@ -183,4 +251,176 @@
     border-radius: 8px;
     background: rgba(255, 77, 109, 0.1);
     border: 1px solid rgba(255, 77, 109, 0.3);
+}
+
+.order-history__card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.order-history__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.order-history__number {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--primary);
+}
+
+.order-history__date {
+    font-size: 0.8rem;
+    color: color-mix(in srgb, var(--text) 50%, transparent);
+}
+
+.order-history__items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.88rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.order-history__item__qty {
+    color: color-mix(in srgb, var(--text) 55%, transparent);
+}
+
+.order-history__item__price {
+    color: color-mix(in srgb, var(--text) 70%, transparent);
+}
+
+.order-history__footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: color-mix(in srgb, var(--text) 60%, transparent);
+}
+
+.order-history__total {
+    font-weight: 700;
+    color: var(--text);
+}
+
+.order-history__promo {
+    color: var(--secondary, #00f0a0);
+}
+
+/* Tracker de suivi de commande */
+.order-tracker {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+    margin: 4px 0 6px;
+    position: relative;
+}
+
+.order-tracker__step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    position: relative;
+}
+
+.order-tracker__dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    background: var(--bg-soft);
+    z-index: 1;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.order-tracker__step--done .order-tracker__dot {
+    background: var(--primary);
+    border-color: var(--primary);
+}
+
+.order-tracker__label {
+    font-size: 0.72rem;
+    color: color-mix(in srgb, var(--text) 50%, transparent);
+    margin-top: 4px;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.order-tracker__step--done .order-tracker__label {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.order-tracker__line {
+    position: absolute;
+    top: 7px;
+    left: 50%;
+    width: 100%;
+    height: 2px;
+    background: var(--border);
+    z-index: 0;
+}
+
+.order-tracker__line--done {
+    background: var(--primary);
+}
+
+.profile__empty {
+    text-align: center;
+    color: color-mix(in srgb, var(--text) 50%, transparent);
+    font-size: 0.9rem;
+    padding: 12px 0;
+}
+
+.profile__danger {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 60, 60, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile__delete-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 60, 60, 0.5);
+    color: #ff4d4d;
+    padding: 8px 16px;
+    border-radius: var(--radius);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.profile__delete-btn:hover {
+    background: rgba(255, 60, 60, 0.1);
+    border-color: #ff4d4d;
+}
+
+.profile__delete-confirm {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.profile__delete-warning {
+    color: #ff4d4d;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.profile__delete-actions {
+    display: flex;
+    gap: 10px;
 }

@@ -1,8 +1,9 @@
-/** définition Sequelize de la table items, avec association item_covers et promotion **/
+/** définition Sequelize de la table items, avec association item_covers, item_sizes et promotion **/
 
 const {DataTypes} = require('sequelize');
 const sequelize = require('../config/sequelizeConfig');
 const ItemCover = require('./coverModelSq');
+const ItemSize = require('./itemSizeModelSq');
 const Promotion = require('./promotionModelSq');
 
 const Item = sequelize.define('Item', {
@@ -24,10 +25,6 @@ const Item = sequelize.define('Item', {
     },
     comfort: {
         type: DataTypes.INTEGER
-    },
-    onSale: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false
     },
     gender: {
         type: DataTypes.STRING,
@@ -52,6 +49,9 @@ const Item = sequelize.define('Item', {
 
 Item.hasMany(ItemCover, {foreignKey: 'item_id', as: 'item_covers'});
 ItemCover.belongsTo(Item, {foreignKey: 'item_id'});
+
+Item.hasMany(ItemSize, {foreignKey: 'item_id', as: 'item_sizes'});
+ItemSize.belongsTo(Item, {foreignKey: 'item_id'});
 
 Item.belongsTo(Promotion, {foreignKey: 'promotion_id', as: 'promotion'});
 Promotion.hasMany(Item, {foreignKey: 'promotion_id', as: 'items'});

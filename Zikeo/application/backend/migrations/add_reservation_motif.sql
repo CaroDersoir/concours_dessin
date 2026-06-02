@@ -1,0 +1,1 @@
+ALTER TABLE reservations ADD COLUMN motif VARCHAR(500) NULL;

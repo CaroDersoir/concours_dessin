@@ -1,13 +1,15 @@
 // Composant formulaire connexion / inscription
 import '../styles/LoginDetail.css';
-import {useEffect, useRef, useState} from 'react';
+import {useEffect, useRef, useState, useContext} from 'react';
 import {useHistory} from 'react-router-dom';
 import {login, register} from '../service/customerServiceFront';
+import {LanguageContext} from '../context/languageContext';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const RECAPTCHA_SITE_KEY = '6LcoJQYtAAAAAORGw4AA2bG07gfSO0SQjgGMfKl8'; // ← clé publique Google reCAPTCHA
 
 function LoginDetail() {
+    const {t} = useContext(LanguageContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -51,15 +53,15 @@ function LoginDetail() {
 
         if (isSignup) {
             if (!EMAIL_REGEX.test(email)) {
-                setErrorMessage('Adresse email invalide.');
+                setErrorMessage(t('login_error_email'));
                 return;
             }
             if (password !== confirmPassword) {
-                setErrorMessage('Les mots de passe ne correspondent pas.');
+                setErrorMessage(t('login_error_password_match'));
                 return;
             }
             if (!recaptchaToken) {
-                setErrorMessage('Veuillez compléter le CAPTCHA.');
+                setErrorMessage(t('login_error_captcha'));
                 return;
             }
         }
@@ -85,14 +87,18 @@ function LoginDetail() {
                 history.push(`/verify-email?email=${encodeURIComponent(data.email)}`);
                 return;
             }
-            setErrorMessage(data?.error || 'Erreur. Veuillez réessayer.');
+            const status = error.response?.status;
+            if (status === 401) setErrorMessage(t('login_error_credentials'));
+            else if (status === 409) setErrorMessage(t('login_error_email_used'));
+            else if (status === 500) setErrorMessage(t('login_error_server'));
+            else setErrorMessage(t('login_error'));
         }
     };
 
     return (
         <div className="login">
             <div className="login__card">
-                <h2 className="login__title">{isSignup ? 'Inscription' : 'Connexion'}</h2>
+                <h2 className="login__title">{isSignup ? t('login_title_register') : t('login_title_login')}</h2>
 
                 {errorMessage && <p className="login__error">{errorMessage}</p>}
 
@@ -100,7 +106,7 @@ function LoginDetail() {
                     <input
                         className="login__input"
                         type="email"
-                        placeholder="Email"
+                        placeholder={t('login_email')}
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
@@ -108,7 +114,7 @@ function LoginDetail() {
                     <input
                         className="login__input"
                         type="password"
-                        placeholder="Mot de passe"
+                        placeholder={t('login_password')}
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
@@ -117,7 +123,7 @@ function LoginDetail() {
                         <input
                             className="login__input"
                             type="password"
-                            placeholder="Confirmer le mot de passe"
+                            placeholder={t('login_placeholder_confirm')}
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
                             required
@@ -125,15 +131,15 @@ function LoginDetail() {
                     )}
                     {isSignup && <div ref={recaptchaRef}></div>}
                     <button className="login__submit" type="submit">
-                        {isSignup ? "S'inscrire" : 'Se connecter'}
+                        {isSignup ? t('login_btn_register') : t('login_btn_login')}
                     </button>
                 </form>
 
                 <div className="login__divider">
-                    {isSignup ? 'Déjà un compte ?' : 'Pas encore de compte ?'}
+                    {isSignup ? t('login_already_account') : t('login_no_account')}
                 </div>
                 <button className="login__switch" onClick={handleSwitch}>
-                    {isSignup ? 'Se connecter' : "S'inscrire"}
+                    {isSignup ? t('login_switch_login') : t('login_switch_register')}
                 </button>
             </div>
         </div>

@@ -15,7 +15,7 @@ const Promotion = sequelize.define('Promotion', {
     },
     code: {
         type: DataTypes.STRING(50),
-        allowNull: false,
+        allowNull: true,
         unique: true
     },
     description: {
@@ -35,6 +35,12 @@ const Promotion = sequelize.define('Promotion', {
     },
     conditions: {
         type: DataTypes.TEXT
+    }
+    ,
+    type: {
+        type: DataTypes.ENUM('item', 'code'),
+        allowNull: false,
+        defaultValue: 'item'
     }
 }, {
     tableName: 'promotions',

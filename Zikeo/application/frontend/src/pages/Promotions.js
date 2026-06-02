@@ -1,14 +1,17 @@
-/** Page affichant toutes les promotions actives, avec gestion admin **/
+/** Page Promotions : articles en promo pour les users, gestion CRUD pour les admins **/
 
-import {useEffect, useState} from 'react';
+import {useEffect, useState, useContext} from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import Item from '../components/Item';
 import {
     getAllPromotions,
     createPromotion,
     updatePromotion,
     deletePromotion
 } from '../service/promotionServiceFront';
+import {getAllItems} from '../service/itemsServiceFront';
+import {LanguageContext} from '../context/languageContext';
 import '../styles/Promotions.css';
 
 const emptyPromo = {
@@ -18,7 +21,8 @@ const emptyPromo = {
     discount_percent: '',
     start_date: '',
     end_date: '',
-    conditions: ''
+    conditions: '',
+    type: 'item'
 };
 
 function formatDate(dateStr) {
@@ -32,7 +36,7 @@ function isActive(promo) {
     return today >= new Date(promo.start_date) && today <= new Date(promo.end_date);
 }
 
-function CopyButton({code}) {
+function CopyButton({code, t}) {
     const [copied, setCopied] = useState(false);
 
     function handleCopy() {
@@ -48,12 +52,12 @@ function CopyButton({code}) {
             className={`promo-card__copy ${copied ? 'promo-card__copy--copied' : ''}`}
             onClick={handleCopy}
         >
-            {copied ? 'Copié !' : 'Copier'}
+            {copied ? t('promo_copied') : t('promo_copy')}
         </button>
     );
 }
 
-function PromoModal({isOpen, promo, onClose, onSaved}) {
+function PromoModal({isOpen, promo, onClose, onSaved, t}) {
     const [formData, setFormData] = useState(emptyPromo);
     const [error, setError] = useState('');
 
@@ -68,7 +72,8 @@ function PromoModal({isOpen, promo, onClose, onSaved}) {
             discount_percent: promo.discount_percent ?? '',
             start_date: promo.start_date || '',
             end_date: promo.end_date || '',
-            conditions: promo.conditions || ''
+            conditions: promo.conditions || '',
+            type: promo.type || 'item'
         } : emptyPromo);
         setError('');
     }, [promo, isOpen]);
@@ -93,8 +98,14 @@ function PromoModal({isOpen, promo, onClose, onSaved}) {
         setError('');
         const payload = {
             ...formData,
-            discount_percent: Number(formData.discount_percent)
+            discount_percent: Number(formData.discount_percent),
+            code: formData.code || null
         };
+
+        if (payload.type === 'code' && !formData.code) {
+            setError(t('promo_modal_error_code_required'));
+            return;
+        }
         try {
             if (isCreating) {
                 await createPromotion(payload);
@@ -113,42 +124,47 @@ function PromoModal({isOpen, promo, onClose, onSaved}) {
             <div className="promo-modal__content" onClick={(e) => e.stopPropagation()}>
                 <div className="promo-modal__header">
                     <h2 className="promo-modal__title">
-                        {isCreating ? 'Ajouter une promotion' : 'Modifier la promotion'}
+                        {isCreating ? t('promo_modal_title_add') : t('promo_modal_title_edit')}
                     </h2>
-                    <button type="button" className="btn btn--ghost" onClick={onClose}>Fermer</button>
+                    <button type="button" className="btn btn--ghost" onClick={onClose}>{t('item_btn_close')}</button>
                 </div>
 
                 {error && <p className="promo-modal__feedback">{error}</p>}
 
                 <form className="promo-modal__form" onSubmit={handleSubmit}>
-                    <input className="input" placeholder="Nom de la promotion" value={formData.name}
+                    <input className="input" placeholder={t('promo_modal_placeholder_name')} value={formData.name}
                            onChange={set('name')} required/>
                     <div className="promo-modal__row">
-                        <input className="input" placeholder="Code (ex: SUMMER20)" value={formData.code}
-                               onChange={set('code')} required style={{textTransform: 'uppercase'}}/>
+                        <input className="input" placeholder={t('promo_modal_placeholder_code')} value={formData.code}
+                               onChange={(e) => setFormData({...formData, code: e.target.value.toUpperCase()})}
+                               required={formData.type === 'code'} style={{textTransform: 'uppercase'}}/>
                         <input className="input" type="number" min="1" max="100" step="0.01"
-                               placeholder="Réduction (%)" value={formData.discount_percent}
+                               placeholder={t('promo_modal_placeholder_discount')} value={formData.discount_percent}
                                onChange={set('discount_percent')} required/>
                     </div>
+                    <select className="input" value={formData.type} onChange={set('type')}>
+                        <option value="item">{t('promo_modal_type_item')}</option>
+                        <option value="code">{t('promo_modal_type_code')}</option>
+                    </select>
                     <div className="promo-modal__row">
                         <label className="input" style={{display: 'grid', gap: '2px', fontSize: '0.82rem'}}>
-                            Début
+                            {t('promo_modal_label_start')}
                             <input type="date" value={formData.start_date} onChange={set('start_date')}
                                    required style={{background: 'transparent', border: 'none', color: 'var(--text)'}}/>
                         </label>
                         <label className="input" style={{display: 'grid', gap: '2px', fontSize: '0.82rem'}}>
-                            Fin
+                            {t('promo_modal_label_end')}
                             <input type="date" value={formData.end_date} onChange={set('end_date')}
                                    required style={{background: 'transparent', border: 'none', color: 'var(--text)'}}/>
                         </label>
                     </div>
-                    <textarea className="input" placeholder="Description" value={formData.description}
+                    <textarea className="input" placeholder={t('item_edit_placeholder_desc')} value={formData.description}
                               onChange={set('description')} rows={2}/>
-                    <textarea className="input" placeholder="Conditions d'utilisation" value={formData.conditions}
+                    <textarea className="input" placeholder={t('promo_modal_placeholder_conditions')} value={formData.conditions}
                               onChange={set('conditions')} rows={2}/>
                     <div className="promo-modal__actions">
                         <button className="btn" type="submit">
-                            {isCreating ? 'Créer' : 'Enregistrer'}
+                            {isCreating ? t('promo_modal_btn_create') : t('item_edit_btn_save')}
                         </button>
                     </div>
                 </form>
@@ -157,13 +173,97 @@ function PromoModal({isOpen, promo, onClose, onSaved}) {
     );
 }
 
-function Promotions() {
+function UserPromotionsView({t}) {
+    const [items, setItems] = useState([]);
+    const [promotions, setPromotions] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [cart, updateCart] = useState(() => {
+        try {
+            const savedCart = localStorage.getItem('zikeo_cart');
+            return savedCart ? JSON.parse(savedCart) : [];
+        } catch {
+            return [];
+        }
+    });
+
+    useEffect(() => {
+        localStorage.setItem('zikeo_cart', JSON.stringify(cart));
+        window.dispatchEvent(new Event('cart-updated'));
+    }, [cart]);
+
+    useEffect(() => {
+        setLoading(true);
+        getAllItems()
+            // show only items that have a promotion associated and that are item-level promotions
+            .then(data => setItems(data.filter(item => item.promotion && item.promotion.type === 'item')))
+            .catch(() => setItems([]))
+            .finally(() => setLoading(false));
+    }, []);
+
+    useEffect(() => {
+        // fetch promotions to display in the left column (read-only for users)
+        getAllPromotions()
+            .then(data => setPromotions(data))
+            .catch(() => setPromotions([]));
+    }, []);
+
+    function addToCart(item) {
+        const existing = cart.find(i => i.name === item.name);
+        if (existing) {
+            updateCart(cart.map(i => i.name === item.name ? {...i, amount: i.amount + 1} : i));
+        } else {
+            updateCart([...cart, {...item, amount: 1}]);
+        }
+    }
+
+    return (
+        <div className="page">
+            <Header/>
+            <main className="page__content promos">
+                <h1 className="page__title">{t('promo_title')}</h1>
+                {loading && <p>{t('merch_admin_loading')}</p>}
+
+                <div style={{display: 'grid', gridTemplateColumns: '320px 1fr', gap: '20px', alignItems: 'start'}}>
+                    <aside>
+                        <div style={{background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 12, padding: 12}}>
+                            <h2 style={{marginTop: 0}}>{t('promo_list_title') || 'Promotions'}</h2>
+                            {promotions.length === 0 && <p style={{opacity: 0.7}}>{t('promo_empty')}</p>}
+                            <ul style={{listStyle: 'none', padding: 0, margin: 0, display: 'grid', gap: 8}}>
+                                {promotions.map(p => (
+                                    <li key={p.id} style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8}}>
+                                        <div>
+                                            <div style={{fontWeight: 700}}>{p.name} <span style={{fontWeight:400, fontSize:'0.85rem', opacity:0.8}}> ({p.type})</span></div>
+                                            <div style={{fontSize: '0.9rem', opacity: 0.8}}>-{p.discount_percent}% {p.code ? `• ${p.code}` : ''}</div>
+                                        </div>
+                                        {p.code ? <CopyButton code={p.code} t={t} /> : null}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </aside>
+                    <section>
+                        <ul className="promos__grid">
+                            {items.map(item => (
+                                <Item key={item.id ?? item.name} item={item} addToCart={addToCart}/>
+                            ))}
+                            {!loading && items.length === 0 && (
+                                <p className="promos__empty">{t('promo_items_empty')}</p>
+                            )}
+                        </ul>
+                    </section>
+                </div>
+            </main>
+            <Footer/>
+        </div>
+    );
+}
+
+function AdminPromotionsView({t}) {
     const [promotions, setPromotions] = useState([]);
     const [loading, setLoading] = useState(false);
     const [feedback, setFeedback] = useState('');
     const [modalOpen, setModalOpen] = useState(false);
     const [editingPromo, setEditingPromo] = useState(null);
-    const isAdmin = localStorage.getItem('isAdmin') === 'true';
 
     async function loadPromotions() {
         setLoading(true);
@@ -171,7 +271,7 @@ function Promotions() {
             const data = await getAllPromotions();
             setPromotions(data);
         } catch {
-            setFeedback('Impossible de charger les promotions.');
+            setFeedback(t('promo_error_load'));
         } finally {
             setLoading(false);
         }
@@ -195,7 +295,7 @@ function Promotions() {
         setFeedback('');
         try {
             await deletePromotion(id);
-            setFeedback('Promotion supprimée.');
+            setFeedback(t('promo_deleted'));
             await loadPromotions();
         } catch (err) {
             setFeedback(err.response?.data?.error || err.message);
@@ -207,14 +307,12 @@ function Promotions() {
             <Header/>
             <main className="page__content promos">
                 <div className="promos__topbar">
-                    <h1 className="page__title">Promotions</h1>
-                    {isAdmin && (
-                        <button className="btn" onClick={openCreate}>Ajouter une promotion</button>
-                    )}
+                    <h1 className="page__title">{t('promo_title')}</h1>
+                    <button className="btn" onClick={openCreate}>{t('promo_btn_add')}</button>
                 </div>
 
                 {feedback && <p className="promo-modal__feedback">{feedback}</p>}
-                {loading && <p>Chargement...</p>}
+                {loading && <p>{t('merch_admin_loading')}</p>}
 
                 <ul className="promos__grid">
                     {promotions.map((promo) => (
@@ -226,7 +324,7 @@ function Promotions() {
 
                             <div className="promo-card__code-row">
                                 <span className="promo-card__code">{promo.code}</span>
-                                <CopyButton code={promo.code}/>
+                                <CopyButton code={promo.code} t={t}/>
                             </div>
 
                             {promo.description && (
@@ -235,16 +333,16 @@ function Promotions() {
 
                             <div className="promo-card__meta">
                                 <span>
-                                    Valable du {formatDate(promo.start_date)} au {formatDate(promo.end_date)}
+                                    {t('promo_dates', {start: formatDate(promo.start_date), end: formatDate(promo.end_date)})}
                                     {' '}{isActive(promo)
-                                        ? '✓ Active'
-                                        : new Date(promo.end_date) < new Date() ? '— Expirée' : '— À venir'}
+                                        ? t('promo_active')
+                                        : new Date(promo.end_date) < new Date() ? t('promo_expired') : t('promo_upcoming')}
                                 </span>
                             </div>
 
                             {promo.conditions && (
                                 <p className="promo-card__conditions">
-                                    Conditions : {promo.conditions}
+                                    {t('promo_conditions_label', {conditions: promo.conditions})}
                                 </p>
                             )}
 
@@ -256,20 +354,18 @@ function Promotions() {
                                 </div>
                             )}
 
-                            {isAdmin && (
-                                <div className="promo-card__actions">
-                                    <button className="btn btn--ghost" onClick={() => openEdit(promo)}>
-                                        Modifier
-                                    </button>
-                                    <button className="btn btn--ghost" onClick={() => handleDelete(promo.id)}>
-                                        Supprimer
-                                    </button>
-                                </div>
-                            )}
+                            <div className="promo-card__actions">
+                                <button className="btn btn--ghost" onClick={() => openEdit(promo)}>
+                                    {t('promo_btn_edit')}
+                                </button>
+                                <button className="btn btn--ghost" onClick={() => handleDelete(promo.id)}>
+                                    {t('promo_btn_delete')}
+                                </button>
+                            </div>
                         </li>
                     ))}
                     {!loading && promotions.length === 0 && (
-                        <p className="promos__empty">Aucune promotion disponible pour le moment.</p>
+                        <p className="promos__empty">{t('promo_empty')}</p>
                     )}
                 </ul>
             </main>
@@ -280,9 +376,18 @@ function Promotions() {
                 promo={editingPromo}
                 onClose={() => setModalOpen(false)}
                 onSaved={loadPromotions}
+                t={t}
             />
         </div>
     );
+}
+
+function Promotions() {
+    const {t} = useContext(LanguageContext);
+
+    // Page promotions : always show user view (read-only), regardless of admin status
+    // Admins manage promotions from a different admin panel if needed
+    return <UserPromotionsView t={t}/>;
 }
 
 export default Promotions;

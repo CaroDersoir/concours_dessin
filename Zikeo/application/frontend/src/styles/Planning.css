@@ -1,5 +1,140 @@
 /* Styles de la page agenda et de la modal de réservation */
 
+/* ===== Surcharge du thème react-big-calendar ===== */
+.rbc-calendar {
+    background: var(--card, #0c1626);
+    color: var(--text, #e6f6ff);
+    border-radius: 10px;
+}
+
+.rbc-toolbar {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.rbc-toolbar button {
+    background: transparent;
+    color: var(--text, #e6f6ff);
+    border: 1px solid var(--border, #1e2a44);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.rbc-toolbar button:hover,
+.rbc-toolbar button.rbc-active {
+    background: var(--bg-soft, #0b1220);
+    color: var(--primary, #00f0ff);
+    border-color: var(--primary, #00f0ff);
+    box-shadow: none;
+}
+
+.rbc-toolbar-label {
+    color: var(--primary, #00f0ff);
+    font-family: 'Orbitron', 'Rajdhani', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+.rbc-header {
+    background: var(--bg-soft, #0b1220);
+    color: var(--text, #e6f6ff);
+    border-color: var(--border, #1e2a44);
+    padding: 0.4rem 0;
+}
+
+.rbc-month-view,
+.rbc-time-view,
+.rbc-agenda-view {
+    border-color: var(--border, #1e2a44);
+}
+
+.rbc-day-bg {
+    background: var(--card, #0c1626);
+}
+
+.rbc-day-bg + .rbc-day-bg,
+.rbc-month-row + .rbc-month-row,
+.rbc-header + .rbc-header {
+    border-color: var(--border, #1e2a44);
+}
+
+.rbc-off-range-bg {
+    background: var(--bg, #05070d);
+}
+
+.rbc-today {
+    background: rgba(0, 240, 255, 0.07);
+}
+
+.rbc-date-cell {
+    color: var(--text, #e6f6ff);
+}
+
+.rbc-date-cell.rbc-off-range {
+    color: var(--border, #1e2a44);
+}
+
+.rbc-show-more {
+    color: var(--primary, #00f0ff);
+    background: transparent;
+}
+
+.rbc-agenda-table {
+    border-color: var(--border, #1e2a44);
+}
+
+.rbc-agenda-table thead {
+    background: var(--bg-soft, #0b1220);
+    color: var(--text, #e6f6ff);
+    border-color: var(--border, #1e2a44);
+}
+
+.rbc-agenda-table tbody > tr > td {
+    border-color: var(--border, #1e2a44);
+    color: var(--text, #e6f6ff);
+}
+
+.rbc-agenda-table tbody > tr > td + td {
+    border-color: var(--border, #1e2a44);
+}
+
+.rbc-agenda-date-cell,
+.rbc-agenda-time-cell {
+    color: var(--text, #e6f6ff);
+}
+
+.rbc-time-content {
+    border-color: var(--border, #1e2a44);
+}
+
+.rbc-time-header-content {
+    border-color: var(--border, #1e2a44);
+}
+
+.rbc-time-slot {
+    border-color: var(--border, #1e2a44);
+}
+
+.rbc-timeslot-group {
+    border-color: var(--border, #1e2a44);
+}
+
+.rbc-label {
+    color: var(--text, #e6f6ff);
+}
+
+.rbc-current-time-indicator {
+    background-color: var(--primary, #00f0ff);
+}
+
+.rbc-row-segment .rbc-event-content {
+    font-size: 0.8rem;
+}
+
+/* ===== Fin surcharge react-big-calendar ===== */
+
 .planning__header {
     display: flex;
     align-items: center;
@@ -8,7 +143,7 @@
 }
 
 .planning__btn-reserver {
-    background-color: var(--color-primary, #5c6bc0);
+    background-color: var(--primary);
     color: #fff;
     border: none;
     border-radius: 8px;
@@ -19,7 +154,7 @@
 }
 
 .planning__btn-reserver:hover {
-    background-color: var(--color-primary-dark, #3949ab);
+    background-color: var(--secondary);
 }
 
 .planning__legend {
@@ -28,7 +163,7 @@
     flex-wrap: wrap;
     margin-bottom: 1rem;
     font-size: 0.85rem;
-    color: var(--color-text-secondary, #555);
+    color: var(--text);
 }
 
 .legend__item {
@@ -46,16 +181,17 @@
 }
 
 .planning__calendar {
-    background: var(--color-surface, #fff);
+    background: var(--card);
+    border: 1px solid var(--border);
     border-radius: 12px;
     padding: 1rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .planning__loading {
     text-align: center;
     padding: 2rem;
-    color: var(--color-text-secondary, #888);
+    color: var(--text);
 }
 
 /* Modal */
@@ -70,7 +206,7 @@
 }
 
 .modal__box {
-    background: var(--color-surface, #fff);
+    background: var(--card);
     border-radius: 12px;
     padding: 2rem;
     width: 100%;
@@ -84,6 +220,7 @@
 .modal__title {
     margin: 0;
     font-size: 1.2rem;
+    color: var(--text);
 }
 
 .modal__fields {
@@ -102,10 +239,11 @@
 
 .modal__input {
     padding: 0.5rem 0.75rem;
-    border: 1px solid var(--color-border, #ccc);
+    border: 1px solid var(--border);
     border-radius: 6px;
     font-size: 0.95rem;
-    background: var(--color-bg, #f9f9f9);
+    background: var(--bg-soft);
+    color: var(--text);
 }
 
 .modal__error {
@@ -137,7 +275,7 @@
 }
 
 .btn--primary {
-    background-color: var(--color-primary, #5c6bc0);
+    background-color: var(--primary);
     color: #fff;
     border: none;
     border-radius: 6px;
@@ -148,7 +286,7 @@
 }
 
 .btn--primary:hover:not(:disabled) {
-    background-color: var(--color-primary-dark, #3949ab);
+    background-color: var(--secondary);
 }
 
 .btn--primary:disabled {
@@ -158,7 +296,8 @@
 
 .btn--secondary {
     background: transparent;
-    border: 1px solid var(--color-border, #ccc);
+    color: var(--text);
+    border: 1px solid var(--border);
     border-radius: 6px;
     padding: 0.5rem 1.1rem;
     cursor: pointer;
@@ -166,5 +305,254 @@
 }
 
 .btn--secondary:hover {
-    background: var(--color-bg, #f3f3f3);
+    background: var(--bg-soft);
+}
+
+.modal__textarea {
+    resize: vertical;
+    min-height: 70px;
+    font-family: inherit;
+}
+
+.planning__detail__rows {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+.planning__detail__row {
+    display: flex;
+    gap: 0.6rem;
+    align-items: baseline;
+    font-size: 0.95rem;
+    color: var(--text);
+}
+
+.planning__detail__row--motif {
+    align-items: flex-start;
+}
+
+.planning__detail__label {
+    flex-shrink: 0;
+    font-weight: 600;
+    color: var(--primary);
+    min-width: 110px;
+}
+
+/* ===== Panneau admin ===== */
+
+.planning__btn-admin-delete {
+    background: transparent;
+    border: 1px solid #c62828;
+    color: #c62828;
+    border-radius: 6px;
+    padding: 0.5rem 1.1rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.15s;
+}
+
+.planning__btn-admin-delete:hover {
+    background: rgba(198, 40, 40, 0.1);
+}
+
+.planning__edit__input {
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    padding: 6px 10px;
+    font-size: 0.9rem;
+    flex: 1;
+}
+
+.planning__edit__input:focus {
+    outline: none;
+    border-color: var(--secondary);
+}
+
+.planning__admin-panel {
+    margin-top: 2rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.planning__admin-title {
+    margin: 0 0 1rem;
+    font-size: 1.1rem;
+    color: var(--text);
+}
+
+.planning__admin-feedback {
+    font-size: 0.9rem;
+    color: var(--primary);
+    margin: 0 0 0.8rem;
+}
+
+.planning__admin-empty {
+    opacity: 0.6;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.planning__derogations-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.planning__derogation-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.9rem 1rem;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    flex-wrap: wrap;
+}
+
+.planning__derogation-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.9rem;
+    color: var(--text);
+}
+
+.planning__derogation-motif {
+    opacity: 0.7;
+    font-style: italic;
+}
+
+.planning__derogation-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-shrink: 0;
+}
+
+/* ===== Tableau de bord réservations ===== */
+
+.planning__dashboard {
+    margin-top: 2rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.planning__dashboard-title {
+    margin: 0 0 1.2rem;
+    font-size: 1.1rem;
+    color: var(--text);
+}
+
+.planning__dashboard-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+@media (max-width: 640px) {
+    .planning__dashboard-cols {
+        grid-template-columns: 1fr;
+    }
+}
+
+.planning__dashboard-col {}
+
+.planning__dashboard-subtitle {
+    margin: 0 0 0.8rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.planning__dashboard-empty {
+    opacity: 0.55;
+    font-size: 0.88rem;
+    margin: 0;
+}
+
+.planning__resa-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.planning__resa-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+    padding: 0.65rem 0.9rem;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+}
+
+.planning__resa-item--past {
+    opacity: 0.65;
+}
+
+.planning__resa-info {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    font-size: 0.88rem;
+    color: var(--text);
+}
+
+.planning__resa-date {
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.planning__resa-hours {
+    opacity: 0.8;
+}
+
+.planning__resa-badge {
+    font-size: 0.75rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+.planning__resa-badge--en_attente {
+    background: rgba(245, 124, 0, 0.15);
+    color: #f57c00;
+    border: 1px solid #f57c00;
+}
+
+.planning__resa-badge--approuvee {
+    background: rgba(56, 142, 60, 0.15);
+    color: #388e3c;
+    border: 1px solid #388e3c;
+}
+
+.planning__resa-badge--refusee {
+    background: rgba(198, 40, 40, 0.1);
+    color: #c62828;
+    border: 1px solid #c62828;
+}
+
+.planning__resa-cancel {
+    flex-shrink: 0;
+    font-size: 0.82rem;
+    padding: 0.3rem 0.75rem;
+    color: var(--text);
+    border-color: var(--border);
 }

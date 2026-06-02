@@ -6,12 +6,12 @@ const Item = require('../modelSequelize/itemModelSq');
 
 exports.findAll = () =>
     Promotion.findAll({
-        include: [{model: Item, as: 'items', attributes: ['id', 'name', 'price', 'onSale']}]
+        include: [{model: Item, as: 'items', attributes: ['id', 'name', 'price', 'promotion_id']}]
     }).then(rows => rows.map(r => r.get({plain: true})));
 
 exports.findById = (id) =>
     Promotion.findByPk(id, {
-        include: [{model: Item, as: 'items', attributes: ['id', 'name', 'price', 'onSale']}]
+        include: [{model: Item, as: 'items', attributes: ['id', 'name', 'price', 'promotion_id']}]
     }).then(r => r ? r.get({plain: true}) : undefined);
 
 exports.findByCode = (code) =>

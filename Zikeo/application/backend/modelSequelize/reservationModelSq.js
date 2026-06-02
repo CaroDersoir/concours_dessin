@@ -38,6 +38,10 @@ const Reservation = sequelize.define('Reservation', {
         allowNull: true,
         defaultValue: null
     },
+    motif: {
+        type: DataTypes.STRING(500),
+        allowNull: true
+    },
     created_at: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW

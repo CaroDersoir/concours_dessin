@@ -1,0 +1,153 @@
+.home__hero {
+    margin-bottom: 40px;
+}
+
+.home__subtitle {
+    margin: 8px 0 0;
+    opacity: 0.65;
+    font-size: 1.05rem;
+}
+
+.home__cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+}
+
+.home__card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 28px 24px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    text-decoration: none;
+    color: var(--text);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.home__card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at top left, var(--glow), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.home__card:hover {
+    border-color: var(--primary);
+    box-shadow: 0 0 24px var(--glow), 0 14px 28px rgba(0, 0, 0, 0.4);
+    transform: translateY(-3px);
+}
+
+.home__card:hover::before {
+    opacity: 0.15;
+}
+
+.home__card__icon {
+    font-size: 2rem;
+    line-height: 1;
+}
+
+.home__card__stat {
+    font-family: 'Orbitron', 'Rajdhani', sans-serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--primary);
+    text-shadow: 0 0 12px var(--glow);
+    line-height: 1;
+}
+
+.home__card__stat--dim {
+    font-size: 1.1rem;
+    color: var(--text);
+    opacity: 0.5;
+    text-shadow: none;
+}
+
+.home__card__title {
+    font-family: 'Orbitron', 'Rajdhani', sans-serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text);
+    margin: 0;
+}
+
+.home__card__sub {
+    font-size: 0.85rem;
+    opacity: 0.6;
+    margin: 0;
+}
+
+.home__card__arrow {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-size: 1.2rem;
+    color: var(--primary);
+    opacity: 0.5;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.home__card:hover .home__card__arrow {
+    opacity: 1;
+    transform: translateX(4px);
+}
+
+.home__card--news {
+    cursor: default;
+}
+
+.home__card--news:hover {
+    border-color: var(--secondary);
+    box-shadow: 0 0 24px var(--glow-secondary), 0 14px 28px rgba(0, 0, 0, 0.4);
+    transform: none;
+}
+
+.home__card--item {
+    padding: 0;
+    overflow: hidden;
+}
+
+.home__card--item .home__card__title,
+.home__card--item .home__card__price {
+    padding: 0 24px;
+    margin: 0;
+}
+
+.home__card--item .home__card__title {
+    padding-top: 16px;
+}
+
+.home__card--item .home__card__price {
+    padding-bottom: 40px;
+    color: var(--primary);
+    font-family: 'Orbitron', 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+
+.home__card__item-img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    display: block;
+}
+
+.home__card__item-placeholder {
+    width: 100%;
+    height: 160px;
+    background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(255, 49, 217, 0.2));
+}
+
+.home__empty {
+    opacity: 0.5;
+    font-size: 0.9rem;
+}

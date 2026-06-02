@@ -11,6 +11,7 @@ function ReservationModal({ onClose, onSuccess }) {
     const [date, setDate] = useState('');
     const [heureDebut, setHeureDebut] = useState('');
     const [heureFin, setHeureFin] = useState('');
+    const [motif, setMotif] = useState('');
     const [error, setError] = useState(null);
     const [limitWarning, setLimitWarning] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -23,7 +24,7 @@ function ReservationModal({ onClose, onSuccess }) {
         setError(null);
         setLoading(true);
         try {
-            await createReservation({ date, heure_debut: heureDebut, heure_fin: heureFin, derogation });
+            await createReservation({ date, heure_debut: heureDebut, heure_fin: heureFin, derogation, motif: motif.trim() || null });
             onSuccess();
         } catch (err) {
             const data = err.response?.data;
@@ -57,6 +58,12 @@ function ReservationModal({ onClose, onSuccess }) {
                         {t('modal_resa_end')}
                         <input type="time" className="modal__input" value={heureFin}
                                onChange={e => { setHeureFin(e.target.value); reset(); }}/>
+                    </label>
+                    <label className="modal__label">
+                        {t('modal_resa_motif')}
+                        <textarea className="modal__input modal__textarea" rows={3} value={motif}
+                                  placeholder={t('modal_resa_motif_placeholder')}
+                                  onChange={e => setMotif(e.target.value)}/>
                     </label>
                 </div>
 

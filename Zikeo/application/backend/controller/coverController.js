@@ -15,3 +15,13 @@ exports.uploadCover = async (req, res) => {
         res.status(500).json({error: err.message});
     }
 };
+
+exports.deleteCover = async (req, res) => {
+    try {
+        const deleted = await coverService.deleteCover(req.params.id);
+        if (!deleted) return res.status(404).json({error: 'Image introuvable'});
+        res.status(204).send();
+    } catch (err) {
+        res.status(500).json({error: err.message});
+    }
+};

@@ -125,6 +125,11 @@
     gap: 10px;
 }
 
+.lesson-card__admin-actions {
+    display: flex;
+    gap: 6px;
+}
+
 .lesson-card__price {
     color: var(--primary);
     font-weight: 700;
@@ -134,4 +139,176 @@
 .lesson-card__btn {
     padding: 6px 14px;
     font-size: 0.85rem;
+}
+
+.lesson-card {
+    cursor: pointer;
+}
+
+/* ===== Filtres ===== */
+
+.lesson-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.lesson-filters__search {
+    flex: 1 1 200px;
+    min-width: 160px;
+}
+
+.lesson-filters__select {
+    flex: 0 1 160px;
+}
+
+.lesson-filters__number {
+    flex: 0 1 130px;
+}
+
+.lesson-filters__available {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.88rem;
+    color: var(--text);
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.lesson-filters__reset {
+    flex-shrink: 0;
+    font-size: 0.85rem;
+    padding: 6px 12px;
+}
+
+/* ===== Modale détail leçon ===== */
+
+.lesson-modal__overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.lesson-modal__box {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 2rem;
+    width: 100%;
+    max-width: 460px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.lesson-modal__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.lesson-modal__name {
+    margin: 0;
+    font-size: 1.15rem;
+    color: var(--text);
+}
+
+.lesson-modal__rows {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.lesson-modal__row {
+    display: flex;
+    gap: 0.6rem;
+    font-size: 0.92rem;
+    color: var(--text);
+}
+
+.lesson-modal__label {
+    font-weight: 600;
+    color: var(--primary);
+    min-width: 100px;
+    flex-shrink: 0;
+}
+
+.lesson-modal__empty {
+    opacity: 0.55;
+    font-style: italic;
+}
+
+.lesson-modal__description {
+    margin: 0.4rem 0 0;
+    font-size: 0.88rem;
+    opacity: 0.72;
+    line-height: 1.45;
+}
+
+.lesson-modal__sessions {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 0.6rem;
+}
+
+.lesson-modal__sessions-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    max-height: 160px;
+    overflow-y: auto;
+}
+
+.lesson-modal__session-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 0.85rem;
+}
+
+.lesson-modal__session-date {
+    color: var(--text);
+}
+
+.lesson-modal__session-hours {
+    color: var(--secondary);
+    font-family: 'Orbitron', 'Rajdhani', sans-serif;
+    font-size: 0.82rem;
+}
+
+.lesson-modal__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+}
+
+.lesson-modal__price {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.lesson-modal__actions {
+    display: flex;
+    gap: 8px;
 }

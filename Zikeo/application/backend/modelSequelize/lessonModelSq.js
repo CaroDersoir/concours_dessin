@@ -47,6 +47,11 @@ const Lesson = sequelize.define('Lesson', {
         type: DataTypes.STRING,
         allowNull: false,
         defaultValue: 'local'
+    },
+    duration_minutes: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        defaultValue: null
     }
 }, {
     tableName: 'lessons',

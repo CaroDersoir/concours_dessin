@@ -52,6 +52,10 @@ const Customer = sequelize.define('Customer', {
     est_professeur: {
         type: DataTypes.BOOLEAN,
         defaultValue: false
+    },
+    can_upload_partition: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true
     }
 }, {
     tableName: 'customer',

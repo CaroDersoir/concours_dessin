@@ -13,9 +13,21 @@ const Partition = sequelize.define('Partition', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    author: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    instrument: {
+        type: DataTypes.ENUM('piano', 'guitare', 'saxophone', 'batterie', 'voix', 'basse', 'violon', 'violoncelle', 'trompette', 'tutti'),
+        allowNull: true
+    },
     url: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    uploaded_by: {
+        type: DataTypes.INTEGER,
+        allowNull: true
     }
 }, {
     tableName: 'partitions',

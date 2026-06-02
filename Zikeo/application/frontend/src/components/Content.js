@@ -1,9 +1,11 @@
 import ItemMerch from './ItemMerch';
 import Cart from './Cart';
 import '../styles/Content.css';
-import {useEffect, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
+import {LanguageContext} from '../context/languageContext';
 
 function Content() {
+    const {t} = useContext(LanguageContext);
     const [cart, updateCart] = useState(() => {
         try {
             const savedCart = localStorage.getItem('zikeo_cart');
@@ -15,26 +17,23 @@ function Content() {
 
     useEffect(() => {
         localStorage.setItem('zikeo_cart', JSON.stringify(cart));
+        window.dispatchEvent(new Event('cart-updated'));
     }, [cart]);
 
     return (
         <div className="merch">
             <section className="merch__banner">
                 <div className="merch__banner__text">
-                    <div className="merch__eyebrow">Collection</div>
+                    <div className="merch__eyebrow">{t('content_eyebrow')}</div>
                     <p className="merch__subtitle">
-                        Pieces limites, textures confort et vibes neon pour la scene.
+                        {t('content_subtitle')}
                     </p>
-                    <div className="merch__actions">
-                        <button className="btn">Decouvrir</button>
-                        <button className="btn btn--ghost">Voir le panier</button>
-                    </div>
                 </div>
                 <div className="merch__banner__card card">
                     <div className="merch__banner__glow"/>
-                    <div className="merch__banner__label">Drop #01</div>
-                    <div className="merch__banner__name">Neo Wave</div>
-                    <div className="merch__banner__price">A partir de 8 €</div>
+                    <div className="merch__banner__label">{t('content_badge')}</div>
+                    <div className="merch__banner__name">{t('content_product_name')}</div>
+                    <div className="merch__banner__price">{t('content_price_from')}</div>
                 </div>
             </section>
 

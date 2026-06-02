@@ -1,4 +1,5 @@
 const partitionsService = require('../service/partitionsService');
+const customerService = require('../service/customerService');
 
 exports.getPartitions = async (req, res) => {
     try {
@@ -11,14 +12,19 @@ exports.getPartitions = async (req, res) => {
 
 exports.uploadPartition = async (req, res) => {
     try {
-        if (!req.file) {
-            return res.status(400).json({error: 'Aucun fichier envoyé'});
+        if (!req.file) return res.status(400).json({error: 'Aucun fichier envoyé'});
+
+        const user = await customerService.findById(req.userId);
+        if (!user || !user.can_upload_partition) {
+            return res.status(403).json({error: 'Vous n\'êtes pas autorisé à ajouter des partitions.'});
         }
 
         const folder = req.file.destination.replace(/^\.\//, '');
         const fileUrl = `http://localhost:5000/${folder}/${req.file.filename}`;
         const title = req.body.title || req.file.originalname;
-        const partition = await partitionsService.createPartition(title, fileUrl);
+        const author = req.body.author || null;
+        const instrument = req.body.instrument || null;
+        const partition = await partitionsService.createPartition(title, fileUrl, author, instrument, req.userId);
 
         res.status(201).json(partition);
     } catch (err) {

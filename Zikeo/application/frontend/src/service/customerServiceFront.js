@@ -21,6 +21,11 @@ export const updateProfile = async (payload) => {
     return data;
 };
 
+export const deleteMyAccount = async () => {
+    const {data} = await api.delete('/api/users/profile');
+    return data;
+};
+
 export const verifyEmail = async (code) => {
     const {data} = await api.post('/api/users/verify-email', {code});
     return data;
@@ -43,5 +48,15 @@ export const deleteUser = async (id) => {
 
 export const updateUserRole = async (id, role) => {
     const {data} = await api.put(`/api/users/admin/users/${id}/role`, {role});
+    return data;
+};
+
+export const updateUserPartitionAccess = async (id, canUpload) => {
+    const {data} = await api.put(`/api/users/admin/users/${id}/partition-access`, {can_upload_partition: canUpload});
+    return data;
+};
+
+export const updateUserTeacher = async (id, isTeacher) => {
+    const {data} = await api.put(`/api/users/admin/users/${id}/teacher`, {est_professeur: isTeacher});
     return data;
 };

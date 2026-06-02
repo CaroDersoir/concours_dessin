@@ -32,6 +32,8 @@ function ListItem({item, onSaved, onDelete}) {
         }
     }
 
+    const promo = item.promotion;
+
     return (
         <>
             <article className="merch-admin__list-item card">
@@ -41,17 +43,25 @@ function ListItem({item, onSaved, onDelete}) {
                     ) : (
                         <div className="merch-admin__list-item__placeholder">Pas d'image</div>
                     )}
+                    {promo && (
+                        <span className="merch-admin__list-item__promo-badge">
+                            -{promo.discount_percent}%
+                        </span>
+                    )}
                 </div>
 
                 <div className="merch-admin__list-item__info">
                     <h3 className="merch-admin__list-item__name">{item.name || 'Sans nom'}</h3>
+                    {promo && (
+                        <div className="merch-admin__list-item__promo-banner">
+                            {promo.name} — -{promo.discount_percent}%
+                        </div>
+                    )}
                     <table className="merch-admin__list-item__details">
                         <tbody>
                         <tr>
                             <td>Prix</td>
                             <td>{item.price != null ? `${item.price} €` : '—'}</td>
-                            <td>Stock</td>
-                            <td>{item.stock ?? '—'}</td>
                         </tr>
                         <tr>
                             <td>Catégorie</td>
@@ -60,15 +70,17 @@ function ListItem({item, onSaved, onDelete}) {
                             <td>{item.gender || '—'}</td>
                         </tr>
                         <tr>
-                            <td>Taille</td>
-                            <td>{item.size || '—'}</td>
-                            <td>Confort</td>
-                            <td>{item.comfort != null ? item.comfort : '—'}</td>
+                            <td>Tailles</td>
+                            <td>
+                                {item.sizes?.length > 0
+                                    ? item.sizes.map(s => `${s.size} (${s.stock})`).join(', ')
+                                    : '—'}
+                            </td>
                         </tr>
-                        {item.onSale && (
+                        {item.promotion && (
                             <tr>
                                 <td>Promo</td>
-                                <td>Oui</td>
+                                <td>{item.promotion.name} (-{item.promotion.discount_percent}%)</td>
                             </tr>
                         )}
                         </tbody>
