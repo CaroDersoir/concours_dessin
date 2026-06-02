@@ -3,8 +3,8 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import '../styles/Partitions.css';
 import logo_partition from '../assets/logo_partition.png';
-import {useEffect, useState, useContext, useMemo} from 'react';
-import {getAllPartitions, uploadPartition, deletePartition} from '../service/partitionsServiceFront';
+import {useContext, useEffect, useMemo, useState} from 'react';
+import {deletePartition, getAllPartitions, uploadPartition} from '../service/partitionsServiceFront';
 import {getProfile} from '../service/customerServiceFront';
 import {LanguageContext} from '../context/languageContext';
 
@@ -36,7 +36,8 @@ function Partitions() {
         if (isLoggedIn) {
             getProfile()
                 .then(user => setCanUpload(!!user.can_upload_partition))
-                .catch(() => {});
+                .catch(() => {
+                });
         }
     }, []);
 

@@ -1,4 +1,4 @@
-import {useState, createContext, useEffect} from 'react';
+import {createContext, useEffect, useState} from 'react';
 import fr from '../locales/fr.json';
 import en from '../locales/en.json';
 import pt from '../locales/pt.json';
@@ -7,7 +7,7 @@ const locales = {fr, en, pt};
 
 export const LANGUAGES = [
     {code: 'fr', label: 'Français', flag: '🇫🇷'},
-    {code: 'en', label: 'English',  flag: '🇬🇧'},
+    {code: 'en', label: 'English', flag: '🇬🇧'},
     {code: 'pt', label: 'Português', flag: '🇵🇹'},
 ];
 

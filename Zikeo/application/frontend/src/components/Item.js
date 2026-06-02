@@ -8,23 +8,34 @@ function ImageCarousel({covers, name}) {
 
     if (count === 0) return <div className="item__catalog__media__placeholder"/>;
 
-    const prev = (e) => { e.stopPropagation(); setIndex(i => (i - 1 + count) % count); };
-    const next = (e) => { e.stopPropagation(); setIndex(i => (i + 1) % count); };
+    const prev = (e) => {
+        e.stopPropagation();
+        setIndex(i => (i - 1 + count) % count);
+    };
+    const next = (e) => {
+        e.stopPropagation();
+        setIndex(i => (i + 1) % count);
+    };
 
     return (
         <div className="item__carousel">
             <img src={covers[index]} alt={`${name} ${index + 1}`} className="item__carousel__img"/>
             {count > 1 && (
                 <>
-                    <button type="button" className="item__carousel__arrow item__carousel__arrow--prev" onClick={prev}>&#8249;</button>
-                    <button type="button" className="item__carousel__arrow item__carousel__arrow--next" onClick={next}>&#8250;</button>
+                    <button type="button" className="item__carousel__arrow item__carousel__arrow--prev"
+                            onClick={prev}>&#8249;</button>
+                    <button type="button" className="item__carousel__arrow item__carousel__arrow--next"
+                            onClick={next}>&#8250;</button>
                     <div className="item__carousel__dots">
                         {covers.map((_, i) => (
                             <button
                                 key={i}
                                 type="button"
                                 className={`item__carousel__dot${i === index ? ' item__carousel__dot--active' : ''}`}
-                                onClick={e => { e.stopPropagation(); setIndex(i); }}
+                                onClick={e => {
+                                    e.stopPropagation();
+                                    setIndex(i);
+                                }}
                             />
                         ))}
                     </div>
@@ -44,7 +55,9 @@ function Item({item, addToCart}) {
     useEffect(() => {
         if (!isDetailOpen) return;
         setSelectedSize(sizes.length > 0 ? sizes[0] : null);
-        const onKeyDown = (e) => { if (e.key === 'Escape') setIsDetailOpen(false); };
+        const onKeyDown = (e) => {
+            if (e.key === 'Escape') setIsDetailOpen(false);
+        };
         window.addEventListener('keydown', onKeyDown);
         return () => window.removeEventListener('keydown', onKeyDown);
     }, [isDetailOpen]);
@@ -98,9 +111,6 @@ function Item({item, addToCart}) {
                         </div>
 
                         <h2 className="item__modal__title">{item.name}</h2>
-                        <p className="item__modal__description">
-                            {item.description || `Pièce ${item.category || 'streetwear'} au style neon, confortable et prête pour la scène.`}
-                        </p>
                         <p className="item__modal__price">{convert(item.price)} {currency.symbol}</p>
 
                         {sizes.length > 0 && (

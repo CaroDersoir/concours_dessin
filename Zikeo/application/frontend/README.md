@@ -1,70 +1,149 @@
-# Getting Started with Create React App
+# Architecture du projet
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Architecture générale
 
-## Available Scripts
+### Front-end
 
-In the project directory, you can run:
+```text
+React Component
+      ↓
+Service API (Axios)
+      ↓
+Backend Express
+      ↓
+Database
+```
 
-### `npm start`
+#### `.env`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+* Contient les variables d'environnement stockées localement.
+* Centralise la configuration sensible (URL API, clés, etc.).
+* Le token d'authentification est automatiquement ajouté aux en-têtes HTTP des requêtes Axios afin d'identifier
+  l'utilisateur sans stocker de session côté serveur.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+#### `api.js`
 
-### `npm test`
+* Crée une instance Axios réutilisable pour communiquer avec le backend.
+* Configure automatiquement les en-têtes HTTP communs.
+* Gère l'authentification avant l'envoi des requêtes.
+* Évite la duplication du code de requêtes HTTP.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### `servicesFront/`
 
-### `npm run build`
+* Centralise les appels API liés aux différents domaines métiers.
+* Encapsule les opérations CRUD, les uploads et les traitements spécifiques.
+* Utilise l'instance Axios commune pour bénéficier de la configuration et de l'authentification automatiques.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### `public/index.html`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+* Page HTML de base dans laquelle React injecte l'application.
+* Contient la configuration générale du site (favicon, responsive, métadonnées, etc.).
+* Permet l'ajout de scripts externes (Google APIs, reCAPTCHA, etc.).
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### `public/manifest.json`
 
-### `npm run eject`
+* Décrit l'application pour les navigateurs et appareils mobiles.
+* Utilisé notamment pour les fonctionnalités PWA (Progressive Web App).
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+#### `index.js`
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+* Point d'entrée principal de l'application React.
+* Monte l'application dans le DOM.
+* Initialise les providers globaux (Router, Context API, internationalisation, etc.).
+* Configure les routes et la navigation entre les pages.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Back-end
 
-## Learn More
+```text
+Route
+  ↓
+Controller
+  ↓
+Service
+  ↓
+Model
+  ↓
+Database
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+#### `.env`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+* Contient les variables d'environnement stockées localement.
+* Stocke les informations sensibles (connexion base de données, clés API, etc.).
 
-### Code Splitting
+#### `routes/index.js`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+* Centralise l'ensemble des routes de l'API.
+* Associe les différents modules métier à leurs endpoints respectifs.
 
-### Analyzing the Bundle Size
+#### `routes/xxxRoutes.js`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+* Définit les endpoints API.
+* Associe chaque route à une méthode du contrôleur.
 
-### Making a Progressive Web App
+#### `controllers/`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+* Reçoit les requêtes HTTP.
+* Récupère les paramètres envoyés par le client.
+* Fait le lien entre les routes et la logique métier.
 
-### Advanced Configuration
+#### `services/`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+* Contient la logique métier de l'application.
+* Applique les règles de gestion.
+* Réalise les calculs et traitements complexes.
+* Communique avec les modèles.
 
-### Deployment
+#### `models/`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+* Interagit avec les modèles Sequelize.
+* Exécute les opérations de lecture et d'écriture via l'ORM.
+* Retourne des données exploitables par les services.
 
-### `npm run build` fails to minify
+#### `modelsSequelize/`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+* Définit les tables, colonnes et relations de la base de données à l'aide de Sequelize.
+
+#### `middlewares/`
+
+* Exécute des traitements avant ou après les requêtes.
+* Exemples : authentification, validation, gestion des fichiers, sélection du dossier de stockage.
+
+#### `config/db.js`
+
+* Gère la connexion à la base de données.
+
+#### `sequelizeConfig/`
+
+* Contient la configuration de Sequelize.
+* Paramètre la connexion à l'ORM et son comportement.
+
+#### `node_modules/`
+
+* Contient l'ensemble des dépendances du projet installées via npm.
+
+---
+
+## Flux complet d'une requête
+
+```text
+[ React Component ]
+          ↓
+[ Service Front ]
+          ↓
+[ Axios (api.js) ]
+          ↓
+[ Route Express ]
+          ↓
+[ Controller ]
+          ↓
+[ Service ]
+          ↓
+[ Model ]
+          ↓
+[ Sequelize ]
+          ↓
+[ Database ]
+```
